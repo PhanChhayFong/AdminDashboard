@@ -13,7 +13,7 @@ export const Login_Form = () => {
           <div className="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
             <div className="bg-secondary rounded p-5 p-sm-5 my-4 mx-1">
               <div className="text-center">
-                <a href="#" className>
+                <a href="#" >
                   <h3 className="text-primary">
                     <i className="fa fa-user-edit me-2" />
                     Furniture Store
@@ -52,7 +52,7 @@ export const Login_Form = () => {
                     Check me out
                   </label>
                 </div>
-                <a href>Forgot Password</a>
+                <a>Forgot Password</a>
               </div>
               <Link to="/admin" type="submit" className="btn btn-primary py-3 w-100 mb-4">
                 Sign In

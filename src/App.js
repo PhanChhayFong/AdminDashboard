@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
+import {  BrowserRouter as Router , Routes, Route } from "react-router-dom";
 import { Home } from "./pages/Homepage/Home";
 import { Category } from "./pages/Commerce_Page/Category/Category";
 import { Slideshow } from "./pages/Commerce_Page/Slideshow/Slideshow";
@@ -33,49 +33,49 @@ import { Register } from "./pages/Authentication/Register";
 
 function App() {
   return (
-    <>
+    <Router>
       <Routes>
         {/* Link to Admin Page */}
-        <Route path="/admin" element={<Home />}></Route>
+        <Route path="/admin" element={<Home />}/>
 
         {/* Link for SideBar */}
-        <Route path="/category" element={<Category />}></Route>
-        <Route path="/slideshow" element={<Slideshow />}></Route>
-        <Route path="/product" element={<Product />}></Route>
-        <Route path="/order" element={<Order />}></Route>
-        <Route path="/cart" element={<Shopping_Cart />}></Route>
-        <Route path="/shipping" element={<Shipping />}></Route>
-        <Route path="/transaction" element={<Transaction />}></Route>
-        <Route path="/company" element={<Company />}></Route>
-        <Route path="/user" element={<User />}></Route>
+        <Route path="/category" element={<Category />}/>
+        <Route path="/slideshow" element={<Slideshow />}/>
+        <Route path="/product" element={<Product />}/>
+        <Route path="/order" element={<Order />}/>
+        <Route path="/cart" element={<Shopping_Cart />}/>
+        <Route path="/shipping" element={<Shipping />}/>
+        <Route path="/transaction" element={<Transaction />}/>
+        <Route path="/company" element={<Company />}/>
+        <Route path="/user" element={<User />}/>
 
         {/* Link for Slide Form */}
-        <Route path="/slideshow/create_slideshow" element={<Create_Slideshow />}></Route>
-        <Route path="/slideshow/edit_slideshow/:id" element={<Edit_Slideshow />} ></Route>
+        <Route path="/slideshow/create_slideshow" element={<Create_Slideshow />}/>
+        <Route path="/slideshow/edit_slideshow/:id" element={<Edit_Slideshow />}/>
 
         {/* Link for Company Form */}
-        <Route path="/company/edit_company" element={<Edit_Company />}></Route>
+        <Route path="/company/edit_company" element={<Edit_Company />}/>
 
         {/* Link for User Form */}
-        <Route path="/user/create_user" element={<Create_User />}></Route>
-        <Route path="/user/edit_user/:id" element={<Edit_User />}></Route>
+        <Route path="/user/create_user" element={<Create_User />}/>
+        <Route path="/user/edit_user/:id" element={<Edit_User />}/>
 
         {/* Link for Category Form */}
-        <Route path="/category/create_category" element={<Create_Category />} ></Route>
-        <Route path="/category/edit_category/:id" element={<Edit_Category />} ></Route>
+        <Route path="/category/create_category" element={<Create_Category />}/>
+        <Route path="/category/edit_category/:id" element={<Edit_Category />}/>
 
         {/* Link for Product Form */}
-        <Route path="/product/create_product" element={<Create_Product />} ></Route>
-        <Route path="/product/edit_product/:id" element={<Edit_Product />} ></Route>
+        <Route path="/product/create_product" element={<Create_Product />}/>
+        <Route path="/product/edit_product/:id" element={<Edit_Product />}/>
 
         {/* Link for Order Detail */}
-        <Route path="/order/order_detail/:id" element={<Order_Detail/>}></Route>
+        <Route path="/order/order_detail/:id" element={<Order_Detail/>}/>
         
         {/* Link for Login Form */}
-        <Route path="/" element={<Login/>}></Route>
-        <Route path="/register" element={<Register/>}></Route>
+        <Route path="/" element={<Login/>}/>
+        <Route path="/register" element={<Register/>}/>
       </Routes>
-    </>
+    </Router>
   );
 }
 
