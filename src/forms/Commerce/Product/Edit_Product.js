@@ -3,13 +3,13 @@ import { Link, useParams } from "react-router-dom";
 import { Header } from "../../../components/Header/Header";
 import { SideBar } from "../../../components/SideBar/SideBar";
 import "./styles/product.css";
-import axios from "axios";
 import Swal from "sweetalert2";
-import productService from "../../../service/product.service";
-import categoryService from "../../../service/category.service";
+import ApiService from "../../../service/api-service";
 window.Swal = Swal;
 
 export const Edit_Product = () => {
+  const tbCategory = "categories";
+  const tbProduct = "products";
   //create key
   const params = useParams();
   const [product, setProducts] = useState([]);
@@ -22,18 +22,16 @@ export const Edit_Product = () => {
   const [checked, setChecked] = useState(false);
   //getting all data from tbProduct and tbCategory
   useEffect(() => {
-    productService
-      .get(params.id)
+    ApiService.get(tbProduct, params.id)
       .then((res) => {
         setProducts(res.data);
-        setProductsCate(res.data.category);
+        setProductsCate(res.data.category==null?"":res.data.category);
         setimgsArray(res.data.images);
       })
       .catch((err) => {
         console.log(err);
       });
-    categoryService
-      .getAll()
+    ApiService.getAll(tbCategory)
       .then((res) => {
         setCategories(res.data);
       })
@@ -82,33 +80,14 @@ export const Edit_Product = () => {
   };
   //send data to api to update
   const submit = async () => {
-    if (img) {
-      const url = "http://localhost:5000/api/v1/products/image/";
-      const dataImage = new FormData();
-      dataImage.append("image", product.image);
-      axios
-        .put(url + params.id, dataImage, {
-          headers: { "Content-Type": "multipart/form-data" },
-        })
-        .then((res) => {
-          console.log(res);
-        });
-    }
+    ApiService.update(tbProduct, params.id, product);
     if (imgschanged) {
-      const url = "http://localhost:5000/api/v1/products/gallery-images/";
       const dataImage = new FormData();
       Array.from(imgsArray).map((image) => {
         return dataImage.append(`images`, image);
       });
-      axios
-        .put(url + params.id, dataImage, {
-          headers: { "Content-Type": "multipart/form-data" },
-        })
-        .then((res) => {
-          console.log(res);
-        });
+      ApiService.update(`${tbProduct}/gallery-images`, params.id, dataImage);
     }
-    productService.update(params.id, product);
   };
   return (
     <>
@@ -306,6 +285,7 @@ export const Edit_Product = () => {
                           onChange={(e) => {
                             setChanged(true);
                             setProductCategory(e.target.value);
+                            setProductsCate(e.target.value);
                           }}
                           value={productCate._id}
                         >
@@ -346,25 +326,14 @@ export const Edit_Product = () => {
                           />
                         </div>
                         <div style={{ textAlign: "center" }}>
-                          {img ? (
-                            <img
-                              src={img}
-                              height="200px"
-                              style={{
-                                border: "1px solid white",
-                                padding: "20px",
-                              }}
-                            />
-                          ) : (
-                            <img
-                              src={`${product.image}`}
-                              height="200px"
-                              style={{
-                                border: "1px solid white",
-                                padding: "20px",
-                              }}
-                            />
-                          )}
+                          <img
+                            src={img ? img : `${product.image}`}
+                            height="200px"
+                            style={{
+                              border: "1px solid white",
+                              padding: "20px",
+                            }}
+                          />
                         </div>
                       </div>
                       {/* Images */}

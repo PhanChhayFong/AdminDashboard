@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Header } from "../../../components/Header/Header";
 import { SideBar } from "../../../components/SideBar/SideBar";
-import categoryService from "../../../service/category.service";
-import axios from "axios";
+import ApiService from "../../../service/api-service";
 import Swal from "sweetalert2";
 window.Swal = Swal;
 
 export const Create_Category = () => {
+  const tb = "categories";
   const [category, setCategory] = useState({
     name: "",
     icon: "",
@@ -24,13 +24,7 @@ export const Create_Category = () => {
   };
   const submit = async () => {
     if (!category.name == "") {
-      const url = "http://localhost:5000/api/v1/categories";
-      const formdata = new FormData();
-      formdata.append("name", category.name);
-      formdata.append("icon", category.image);
-      axios.post(url, formdata, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      ApiService.create(tb, category);
     } else {
       Swal.fire({
         icon: "error",
@@ -127,7 +121,9 @@ export const Create_Category = () => {
                                 padding: "20px",
                               }}
                             />
-                          ) : null}
+                          ) : (
+                            ""
+                          )}
                         </div>
                       </div>
                     </div>

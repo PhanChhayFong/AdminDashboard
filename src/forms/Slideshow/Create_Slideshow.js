@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Header } from "../../components/Header/Header";
 import { SideBar } from "../../components/SideBar/SideBar";
-import sliderService from "../../service/slider.service";
-import axios from "axios";
+import ApiService from "../../service/api-service";
 import Swal from "sweetalert2";
 window.Swal = Swal;
 
 export const Create_Slideshow = () => {
+  const tb = "sliders";
   const [slider, setSliders] = useState({
     title: "",
     miniTitle: "",
@@ -36,8 +36,7 @@ export const Create_Slideshow = () => {
     });
   };
   useEffect(() => {
-    sliderService
-      .getLastOrder()
+    ApiService.getLastOrder(tb)
       .then((res) => {
         setSliders({
           ...slider,
@@ -50,18 +49,7 @@ export const Create_Slideshow = () => {
   }, []);
   const submit = async () => {
     if (!slider.title == "" || !slider.description == "") {
-      const url = "http://localhost:5000/api/v1/sliders";
-      const formdata = new FormData();
-      formdata.append("title", slider.title);
-      formdata.append("miniTitle", slider.miniTitle);
-      formdata.append("description", slider.description);
-      formdata.append("image", slider.image);
-      formdata.append("order", slider.order);
-      formdata.append("url", slider.url);
-
-      axios.post(url, formdata, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      ApiService.create(tb, slider);
     } else {
       alart();
     }

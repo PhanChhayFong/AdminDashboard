@@ -2,20 +2,20 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Header } from "../../../components/Header/Header";
 import { SideBar } from "../../../components/SideBar/SideBar";
-import axios from "axios";
 import Swal from "sweetalert2";
-import categoryService from "../../../service/category.service";
+import ApiService from "../../../service/api-service";
 window.Swal = Swal;
 
 export const Edit_Category = () => {
+  const tb = "categories";
   const params = useParams();
   const [category, setCategory] = useState([]);
   const [ico, setIco] = useState();
   const [changed, setChanged] = useState(false);
 
   useEffect(() => {
-    categoryService
-      .get(params.id)
+    ApiService
+      .get(tb,params.id)
       .then((res) => {
         setCategory(res.data);
       })
@@ -53,17 +53,7 @@ export const Edit_Category = () => {
     setChanged(true);
   };
 
-  const submit = async () => {
-    const url = "http://localhost:5000/api/v1/categories/";
-    const formdata = new FormData();
-    formdata.append("name", category.name);
-    formdata.append("icon", category.icon);
-    axios.put(url + params.id, formdata, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
-    // categoryService.update(params.id, category);
-    // console.log(category);
-  };
+  const submit = async () => ApiService.update(tb,params.id, category);
   return (
     <>
       <SideBar />

@@ -1,10 +1,61 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import { Header } from "../../../components/Header/Header";
 import { SideBar } from "../../../components/SideBar/SideBar";
-import userProfile from "../../assets/img/testimonial-2.jpg";
 import "./styles/user.css";
+import Swal from "sweetalert2";
+import ApiService from "../../../service/api-service";
+window.Swal = Swal;
 export const Edit_User = () => {
+  const tb = "users";
+  const [checked, setChecked] = useState(true);
+  const params = useParams();
+  const [user, setUser] = useState([]);
+  const [img, setImg] = useState();
+  const [changed, setChanged] = useState(false);
+  //getting all data from tbProduct and tbCategory
+  useEffect(() => {
+    ApiService.get(tb, params.id)
+      .then((res) => {
+        setUser(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+  //alart popup box when go back to list without save
+  const alart = () => {
+    if (changed) {
+      Swal.fire({
+        title: "Do you want to save the changes?",
+        showDenyButton: true,
+        confirmButtonText: "Save",
+        denyButtonText: `Don't save`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          submit();
+          Swal.fire("Saved!", "", "success");
+        } else if (result.isDenied) {
+          Swal.fire("Changes are not saved", "", "info");
+        }
+      });
+    }
+  };
+  //edit new Image
+  const hiddenImageUpload = React.useRef(null);
+  const handleClick = () => hiddenImageUpload.current.click();
+  const handleInputChange = (event) => {
+    setImg(URL.createObjectURL(event.target.files[0]));
+    setUser({
+      ...user,
+      image: event.target.files[0],
+    });
+    setChanged(true);
+  };
+  //send data to api to update
+  const submit = async () => {
+    ApiService.update(tb, params.id, user);
+  };
   return (
     <>
       <SideBar />
@@ -21,16 +72,25 @@ export const Edit_User = () => {
                     </div>
                     <div className="col-md-6">
                       <Link
+                        onClick={() => alart()}
                         to="/user"
                         className="btn btn-success btn-sm bg-success px-3 py-2 fw-bold float-end"
                       >
                         <i className="fas fa-undo-alt me-2" />
                         Back To User
                       </Link>
-                      <button className="btn btn-warning bg-warning btn-sm float-end px-4 py-2 me-2 fw-bold">
-                        <i className="fas fa-tools me-2" />
-                        Update
-                      </button>
+                      {changed ? (
+                        <Link
+                          to="/user"
+                          onClick={() => submit()}
+                          className="btn btn-warning bg-warning btn-sm float-end px-4 py-2 me-2 fw-bold"
+                        >
+                          <i className="fas fa-tools me-2" />
+                          Update
+                        </Link>
+                      ) : (
+                        ""
+                      )}
                     </div>
                   </div>
 
@@ -41,8 +101,15 @@ export const Edit_User = () => {
                           type="text"
                           className="form-control"
                           id="name"
+                          value={user.name}
                           placeholder="name"
-                          value="Phan Chayfong"
+                          onChange={(e) => {
+                            setChanged(true);
+                            setUser({
+                              ...user,
+                              name: e.target.value,
+                            });
+                          }}
                         />
                         <label htmlFor="name">Name</label>
                       </div>
@@ -53,23 +120,17 @@ export const Edit_User = () => {
                           className="form-control"
                           id="email"
                           placeholder="email"
-                          value="phan.chayfong.react@gmail.com"
+                          value={user.email}
+                          onChange={(e) => {
+                            setChanged(true);
+                            setUser({
+                              ...user,
+                              email: e.target.value,
+                            });
+                          }}
                         />
                         <label htmlFor="email" className="form-label">
                           Email
-                        </label>
-                      </div>
-
-                      <div className="form-floating mb-3">
-                        <input
-                          type="password"
-                          className="form-control"
-                          id="password"
-                          placeholder="password"
-                          value="123456789"
-                        />
-                        <label htmlFor="password" className="form-label">
-                          Password
                         </label>
                       </div>
 
@@ -79,10 +140,45 @@ export const Edit_User = () => {
                           className="form-control"
                           id="phone"
                           placeholder="phone"
+                          value={user.phone}
+                          onChange={(e) => {
+                            setChanged(true);
+                            setUser({
+                              ...user,
+                              phone: e.target.value,
+                            });
+                          }}
                         />
                         <label htmlFor="phone" className="form-label">
                           Phone
                         </label>
+                      </div>
+
+                      <div className="form-floating mb-3">
+                        <div className="form-check form-switch">
+                          <input
+                            className="form-check-input px-3 py-2 me-3"
+                            type="checkbox"
+                            role="switch"
+                            id="featured_product"
+                            value={user.isAdmin}
+                            checked={user.isAdmin}
+                            onClick={() => {
+                              setChecked(!checked);
+                              setUser({
+                                ...user,
+                                isAdmin: checked,
+                              });
+                              setChanged(true);
+                            }}
+                          />
+                          <label
+                            className="form-check-label"
+                            htmlFor="featured_product"
+                          >
+                            Admin Role
+                          </label>
+                        </div>
                       </div>
                     </div>
 
@@ -93,7 +189,14 @@ export const Edit_User = () => {
                           className="form-control"
                           id="nationality"
                           placeholder="nationality"
-                          value="Cambodian"
+                          value={user.nationality}
+                          onChange={(e) => {
+                            setChanged(true);
+                            setUser({
+                              ...user,
+                              nationality: e.target.value,
+                            });
+                          }}
                         />
                         <label htmlFor="nationality" className="form-label">
                           Nationality
@@ -104,9 +207,17 @@ export const Edit_User = () => {
                         <input
                           type="date"
                           className="form-control"
+                          style={{ colorScheme: "dark" }}
                           id="date_of_birt"
                           placeholder="date_of_birt"
-                          value="12/06/2000"
+                          value={user.DOB}
+                          onChange={(e) => {
+                            setChanged(true);
+                            setUser({
+                              ...user,
+                              DOB: e.target.value,
+                            });
+                          }}
                         />
                         <label htmlFor="date_of_birt" className="form-label">
                           Date of Birth
@@ -117,9 +228,15 @@ export const Edit_User = () => {
                         <textarea
                           className="form-control company-address"
                           placeholder="address"
-                        >
-                          Address
-                        </textarea>
+                          value={user.address}
+                          onChange={(e) => {
+                            setChanged(true);
+                            setUser({
+                              ...user,
+                              address: e.target.value,
+                            });
+                          }}
+                        ></textarea>
                         <label htmlFor="address" className="form-label">
                           Address
                         </label>
@@ -128,46 +245,43 @@ export const Edit_User = () => {
 
                     <div className="col-md-4">
                       <div className="mb-3">
-                        <label htmlFor="utype" className="form-label">
-                          User Gender
-                        </label>
-                        <select
-                          className="form-select form-select-lg mb-3 fs-6"
-                          id="utype"
-                          aria-label=".form-select-lg example"
-                        >
-                          <option>Select Gender</option>
-                          <option value="1" selected>
-                            M
-                          </option>
-                          <option value="2">F</option>
-                        </select>
-                      </div>
-
-                      <div className="mb-3">
-                        <label htmlFor="utype" className="form-label">
-                          User Type
-                        </label>
-                        <select
-                          className="form-select form-select-lg mb-3 fs-6"
-                          id="utype"
-                          aria-label=".form-select-lg example"
-                        >
-                          <option>User Type</option>
-                          <option value="1" selected>
-                            Admin
-                          </option>
-                          <option value="2">User</option>
-                        </select>
-                      </div>
-
-                      <div className="mb-5">
                         <label htmlFor="image" className="form-label">
                           User Image
                         </label>
-                        {/* <input type="file" className="form-control" id="image" /> */}
-                        <div className="user-img">
-                          <img src={userProfile} width="65" />
+                        <div
+                          style={{
+                            width: "40%",
+                            margin: "10px auto",
+                            textAlign: "center",
+                          }}
+                        >
+                          <label
+                            onClick={handleClick}
+                            className="form-control"
+                            style={{ cursor: "pointer" }}
+                          >
+                            Select Image
+                          </label>
+                          <input
+                            ref={hiddenImageUpload}
+                            type="file"
+                            style={{ display: "none" }}
+                            onChange={handleInputChange}
+                          />
+                        </div>
+                        <div style={{ textAlign: "center" }}>
+                          <img
+                            src={
+                              img
+                                ? URL.createObjectURL(user.image)
+                                : `${user.image}`
+                            }
+                            height="200px"
+                            style={{
+                              border: "1px solid white",
+                              padding: "20px",
+                            }}
+                          />
                         </div>
                       </div>
                     </div>

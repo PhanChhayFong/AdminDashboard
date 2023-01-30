@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import sliderService from "../../service/slider.service";
+import ApiService from "../../service/api-service";
 import Pagination from "../../components/Pagination";
 import Swal from "sweetalert2";
 window.Swal = Swal;
@@ -13,13 +13,12 @@ export const Slideshow_Index = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = sliders.slice(indexOfFirstItem, indexOfLastItem);
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const tb = "sliders";
   useEffect(() => {
     setReRender(false);
-    sliderService
-      .getAll()
+    ApiService.getAll(tb)
       .then((res) => {
         setSliders(res.data);
-        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -43,7 +42,7 @@ export const Slideshow_Index = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire("Deleted!", "Your file has been deleted.", "success");
-        sliderService.delete(id);
+        ApiService.delete(tb, id);
         setReRender(true);
       }
     });
@@ -56,11 +55,11 @@ export const Slideshow_Index = () => {
     });
   };
   const swapOrder = (Cid, Nid) => {
-    Nid != "Up" && Nid != "Down"
-      ? sliderService.updateOrder(Cid, Nid)
-      : alartError(Nid);
-    // setReRender(true);
-    refresh();
+    if (Nid != "Up" && Nid != "Down") {
+      ApiService.updateOrder(tb, Cid, Nid);
+      // refresh();
+      setReRender(true);
+    } else alartError(Nid);
   };
   const changeSliderPP = (e) => setitemsPerPage(e.target.value);
   const refresh = () => window.location.reload(true);
@@ -89,7 +88,7 @@ export const Slideshow_Index = () => {
                   <th scope="col">Nº</th>
                   <th scope="col">Image</th>
                   <th scope="col">Title</th>
-                  <th scope="col">Link</th>
+                  <th scope="col">Event</th>
                   <th scope="col">Order</th>
                   <th scope="col">Actions</th>
                 </tr>
@@ -102,14 +101,14 @@ export const Slideshow_Index = () => {
                       <img src={slider.image} height="50px" />
                     </td>
                     <td>{slider.title}</td>
-                    <td>{slider.url}</td>
+                    <td>{slider.miniTitle}</td>
                     <td>{slider.order}</td>
                     <td>
                       <a
                         className="btn btn-success btn-sm me-2"
                         onClick={() => {
                           toggleEye(`${slider.enable}`);
-                          sliderService.updateEnable(`${slider.id}`);
+                          ApiService.updateEnable(tb, `${slider.id}`);
                           setReRender(true);
                         }}
                         title={`${slider.enable}`}

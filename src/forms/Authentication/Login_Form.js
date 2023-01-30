@@ -54,9 +54,9 @@ export const Login_Form = () => {
                 </div>
                 <a href>Forgot Password</a>
               </div>
-              <button type="submit" className="btn btn-primary py-3 w-100 mb-4">
+              <Link to="/admin" type="submit" className="btn btn-primary py-3 w-100 mb-4">
                 Sign In
-              </button>
+              </Link>
               <p className="text-center mb-0">
                 Don't have an Account? <Link to="/register">Sign Up</Link>{" "}
               </p>

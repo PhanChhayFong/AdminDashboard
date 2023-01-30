@@ -19,13 +19,14 @@ import { Edit_Company } from "./forms/Configurations/Company/Edit_Company";
 
 import { Create_User } from "./forms/Configurations/User/Create_User";
 import { Edit_User } from "./forms/Configurations/User/Edit_User";
-import { View_User } from "./forms/Configurations/User/View_User";
 
 import { Create_Category } from "./forms/Commerce/Category/Create_Category";
 import { Edit_Category } from "./forms/Commerce/Category/Edit_Category";
 
 import { Create_Product } from "./forms/Commerce/Product/Create_Product";
 import { Edit_Product } from "./forms/Commerce/Product/Edit_Product";
+
+import { Order_Detail } from "./forms/Commerce/Order/Order_Detail";
 
 import { Login } from "./pages/Authentication/Login";
 import { Register } from "./pages/Authentication/Register";
@@ -58,7 +59,6 @@ function App() {
         {/* Link for User Form */}
         <Route path="/user/create_user" element={<Create_User />}></Route>
         <Route path="/user/edit_user/:id" element={<Edit_User />}></Route>
-        <Route path="/user/view_user/:id" element={<View_User />}></Route>
 
         {/* Link for Category Form */}
         <Route path="/category/create_category" element={<Create_Category />} ></Route>
@@ -68,6 +68,9 @@ function App() {
         <Route path="/product/create_product" element={<Create_Product />} ></Route>
         <Route path="/product/edit_product/:id" element={<Edit_Product />} ></Route>
 
+        {/* Link for Order Detail */}
+        <Route path="/order/order_detail/:id" element={<Order_Detail/>}></Route>
+        
         {/* Link for Login Form */}
         <Route path="/" element={<Login/>}></Route>
         <Route path="/register" element={<Register/>}></Route>

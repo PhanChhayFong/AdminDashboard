@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import CategoryService from "../../../service/category.service";
+import ApiService from "../../../service/api-service";
 import Pagination from "../../../components/Pagination";
 import Swal from "sweetalert2";
 window.Swal = Swal;
@@ -8,6 +8,7 @@ window.Swal = Swal;
 export const Category_Index = () => {
   const [categories, setCategories] = useState([]);
   const [reRender, setReRender] = useState(false);
+  //about pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setitemsPerPage] = useState(5);
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -15,8 +16,10 @@ export const Category_Index = () => {
   const currentItems = categories.slice(indexOfFirstItem, indexOfLastItem);
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   const changeCategoryPP = (e) => setitemsPerPage(e.target.value);
+  const tb = "categories";
+
   useEffect(() => {
-    CategoryService.getAll()
+    ApiService.getAll(tb)
       .then((res) => {
         setCategories(res.data);
       })
@@ -37,7 +40,7 @@ export const Category_Index = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire("Deleted!", "Your file has been deleted.", "success");
-        CategoryService.delete(id);
+        ApiService.delete(tb,id);
         setReRender(true);
       }
     });

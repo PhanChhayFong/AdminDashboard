@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Header } from "../../../components/Header/Header";
 import { SideBar } from "../../../components/SideBar/SideBar";
-import categoryService from "../../../service/category.service";
+import ApiService from "../../../service/api-service";
 import "./styles/product.css";
-import axios from "axios";
 import Swal from "sweetalert2";
 window.Swal = Swal;
 
 export const Create_Product = () => {
+  const tbCategory = "categories";
+  const tbProduct = "products";
   const [product, setProducts] = useState({
     name: "",
     description: "",
@@ -23,8 +24,7 @@ export const Create_Product = () => {
   const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState(true);
   useEffect(() => {
-    categoryService
-      .getAll()
+    ApiService.getAll(tbCategory)
       .then((res) => {
         setCategories(res.data);
       })
@@ -58,20 +58,7 @@ export const Create_Product = () => {
       !product.image == "" ||
       !product.category == ""
     ) {
-      const url = "http://localhost:5000/api/v1/products";
-      const formdata = new FormData();
-      formdata.append("name", product.name);
-      formdata.append("description", product.description);
-      formdata.append("image", product.image);
-      formdata.append("regularPrice", product.regularPrice);
-      formdata.append("salePrice", product.salePrice);
-      formdata.append("sku", product.sku);
-      formdata.append("category", product.category);
-      formdata.append("countInStock", product.countInStock);
-      formdata.append("isFeatured", product.isFeatured);
-      axios.post(url, formdata, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      ApiService.create(tbProduct, product);
     } else {
       Swal.fire({
         icon: "error",
@@ -309,7 +296,9 @@ export const Create_Product = () => {
                                 padding: "20px",
                               }}
                             />
-                          ) : null}
+                          ) : (
+                            ""
+                          )}
                         </div>
                       </div>
                     </div>

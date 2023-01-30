@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import ProductService from "../../../service/product.service";
+import ApiService from "../../../service/api-service";
 import Pagination from "../../../components/Pagination";
 import Swal from "sweetalert2";
 window.Swal = Swal;
 
 export const Product_Index = () => {
+  const tb = "products";
   const [products, setProducts] = useState([]);
+  const [category, setCategory] = useState([]);
   const [reRender, setReRender] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setitemsPerPage] = useState(5);
@@ -16,13 +18,14 @@ export const Product_Index = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   const changeProductPP = (e) => setitemsPerPage(e.target.value);
   useEffect(() => {
-    ProductService.getAll()
-      .then((res) => {
-        setProducts(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    ApiService.getAll(tb).then((res) => {
+      setProducts(res.data);
+      console.log(res.data);
+      // setCategory(res.data.category);
+    });
+    // ApiService.getAll("categories").then((res) => {
+    //   setCategory(res.data);
+    // });
     setReRender(false);
   }, [reRender]);
   const alartDelete = (id) => {
@@ -37,7 +40,7 @@ export const Product_Index = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire("Deleted!", "Your file has been deleted.", "success");
-        ProductService.delete(id);
+        ApiService.delete(tb, id);
         setReRender(true);
       }
     });
@@ -70,6 +73,10 @@ export const Product_Index = () => {
                 </Link>
               </div>
             </div>
+
+            {/* {category.map((cate) => (
+              <div>{cate.name}</div>
+            ))} */}
             <table className="table">
               <thead>
                 <tr>
@@ -95,7 +102,7 @@ export const Product_Index = () => {
                     <td>{product.sku}</td>
                     <td>{stockStatus(`${product.countInStock}`)}</td>
                     <td>{product.name}</td>
-                    <td>{product.category.name}</td>
+                    <td>{product.category == null ? "" : product.category.name}</td>
                     <td>{product.countInStock}</td>
                     <td>$ {product.regularPrice}</td>
                     <td>$ {product.salePrice}</td>

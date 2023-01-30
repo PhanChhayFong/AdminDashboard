@@ -2,20 +2,20 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Header } from "../../components/Header/Header";
 import { SideBar } from "../../components/SideBar/SideBar";
-import sliderService from "../../service/slider.service";
-import axios from "axios";
+import ApiService from "../../service/api-service";
 import Swal from "sweetalert2";
 window.Swal = Swal;
 
 export const Edit_Slideshow = () => {
   const params = useParams();
+  const tb = "sliders";
 
   const [slider, setSliders] = useState([]);
   const [changed, setChanged] = useState(false);
   const [img, setImg] = useState();
   useEffect(() => {
-    sliderService
-      .get(params.id)
+    ApiService
+      .get(tb,params.id)
       .then((res) => {
         setSliders(res.data);
       })
@@ -43,9 +43,7 @@ export const Edit_Slideshow = () => {
     }
   };
   const hiddenFileInput = React.useRef(null);
-  const handleClick = () => {
-    hiddenFileInput.current.click();
-  };
+  const handleClick = () => hiddenFileInput.current.click();
   const handleInputChange = (event) => {
     setImg(URL.createObjectURL(event.target.files[0]));
     setSliders({
@@ -56,20 +54,11 @@ export const Edit_Slideshow = () => {
   };
 
   const submit = async () => {
-    if (img) {
-      const url = "http://localhost:5000/api/v1/sliders/image/";
-      const formdata = new FormData();
-      formdata.append("image", slider.image);
-
-      axios
-        .put(url + params.id, formdata, {
-          headers: { "Content-Type": "multipart/form-data" },
-        })
-        .then((res) => {
-          console.log(res);
-        });
-    }
-    sliderService.update(params.id, slider);
+    // const url = "http://localhost:5000/api/v1/sliders/";
+    // axios.put(url + params.id, slider, {
+    //   headers: { "Content-Type": "multipart/form-data" },
+    // });
+    ApiService.update(tb,params.id, slider);
   };
   return (
     <>
@@ -210,25 +199,14 @@ export const Edit_Slideshow = () => {
                       />
                     </div>
                     <div>
-                      {img ? (
-                        <img
-                          src={img}
-                          height="200px"
-                          style={{
-                            border: "1px solid white",
-                            padding: "20px",
-                          }}
-                        />
-                      ) : (
-                        <img
-                          src={`${slider.image}`}
-                          height="200px"
-                          style={{
-                            border: "1px solid white",
-                            padding: "20px",
-                          }}
-                        />
-                      )}
+                      <img
+                        src={img ? img : `${slider.image}`}
+                        height="200px"
+                        style={{
+                          border: "1px solid white",
+                          padding: "20px",
+                        }}
+                      />
                     </div>
                   </div>
                 </form>
