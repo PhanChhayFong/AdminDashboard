@@ -4,3 +4,6 @@
 .d-scroll-y{
     overflow-x: hidden;
 }
+.m-pointer{
+    cursor: pointer;
+}

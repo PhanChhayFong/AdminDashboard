@@ -11,7 +11,7 @@ export const Widgets = () => {
           <div className="h-100 bg-secondary rounded p-4">
             <div className="d-flex align-items-center justify-content-between mb-2">
               <h6 className="mb-0">Messages</h6>
-              <a href>Show All</a>
+              <a >Show All</a>
             </div>
             <div className="d-flex align-items-center border-bottom py-3">
               <img
@@ -75,7 +75,7 @@ export const Widgets = () => {
           <div className="h-100 bg-secondary rounded p-4">
             <div className="d-flex align-items-center justify-content-between mb-4">
               <h6 className="mb-0">Calender</h6>
-              <a href>Show All</a>
+              <a >Show All</a>
             </div>
             <div id="calender" />
           </div>
@@ -84,7 +84,7 @@ export const Widgets = () => {
           <div className="h-100 bg-secondary rounded p-4">
             <div className="d-flex align-items-center justify-content-between mb-4">
               <h6 className="mb-0">To Do List</h6>
-              <a href>Show All</a>
+              <a >Show All</a>
             </div>
             <div className="d-flex mb-2">
               <input

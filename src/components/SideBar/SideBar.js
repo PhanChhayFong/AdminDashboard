@@ -1,9 +1,24 @@
-import React from "react";
+import { React, useRef, useState, useEffect } from "react";
 import userProfile from "../../assets/img/user.jpg";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, Navigate } from "react-router-dom";
 import "./Sidebar.css";
+import ApiService from "../../service/api-service";
 
 export const SideBar = () => {
+  const [navigate, setNavigate] = useState(false);
+  const user = { active: false };
+  const token = localStorage.getItem("token");
+  const item = token ? JSON.parse(token) : "";
+  const Logout = () => {
+    if (token) {
+      ApiService.updateActive("users", item.user.id, user);
+    }
+    localStorage.clear("token");
+    setNavigate(true);
+  };
+  if (navigate) {
+    return <Navigate to="/" />;
+  }
   return (
     <div className="sidebar pe-4 pb-3 d-scroll-y">
       <nav className="navbar bg-secondary navbar-dark">
@@ -15,16 +30,32 @@ export const SideBar = () => {
         </Link>
         <div className="d-flex align-items-center ms-4 mb-4">
           <div className="position-relative">
-            <img
+            {/* <img
               className="rounded-circle"
-              src={userProfile}
+              src={token?`${item.user.image}`:""}
               style={{ width: 40, height: 40 }}
             />
-            <div className="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1" />
+            <div className="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1" /> */}
+            <div
+              className="position-relative rounded-circle"
+              style={{
+                width: 40,
+                height: 40,
+                backgroundImage: token ? `url(${item.user.image})` : "",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "100%",
+                backgroundPosition: "center",
+                backgroundColor: "#0775d4",
+              }}
+            >
+              <div
+                className={"bg-success rounded-circle border border-2 border-white position-absolute bottom-0 p-1"}
+              />
+            </div>
           </div>
           <div className="ms-3">
-            <h6 className="mb-0">Phan ChhayFong</h6>
-            <span>Admin</span>
+            <h6 className="mb-0">{item.user.name}</h6>
+            <span>{item.user.isAdmin?"Admin":"User"}</span>
           </div>
         </div>
         <div className="navbar-nav w-100">
@@ -95,10 +126,15 @@ export const SideBar = () => {
               </NavLink>
             </div>
           </div>
-          <NavLink to="/" className="nav-item nav-link">
+          <a
+            onClick={() => {
+              Logout();
+            }}
+            className="nav-item nav-link m-pointer"
+          >
             <i className="fas fa-sign-out-alt me-2" />
             Sign Out
-          </NavLink>
+          </a>
         </div>
       </nav>
     </div>

@@ -20,7 +20,7 @@ export const Product_Index = () => {
   useEffect(() => {
     ApiService.getAll(tb).then((res) => {
       setProducts(res.data);
-      console.log(res.data);
+      // console.log(res.data);
       // setCategory(res.data.category);
     });
     // ApiService.getAll("categories").then((res) => {
