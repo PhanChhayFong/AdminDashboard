@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ApiService from "../service/api-service";
+import { SideBar } from "./SideBar/SideBar";
+import { Header } from "./Header/Header";
 import { useNavigate } from "react-router-dom";
 const ProtectedRoute = ({ children }) => {
   const user= { active: true }
@@ -19,7 +21,17 @@ const ProtectedRoute = ({ children }) => {
       }
     }
   }, []);
-  return children;
+  const [open, setOpen] = useState(false);
+  const handleClick = () => setOpen(!open);
+  return (
+    <>
+    <SideBar open={open}/>
+    <div className={`content ${open?"open":""}`}>
+      <Header click={()=>{handleClick()}}/>
+      {children}
+    </div>
+    </>
+  );
 };
 
 export default ProtectedRoute;

@@ -1,14 +1,26 @@
-import React from "react";
+import { React, useState} from "react";
 import "./Header.css";
 import ApiService from "../../service/api-service";
-import userProfile from "../../assets/img/user.jpg";
 import profile from "../../assets/img/user.jpg";
 import profile1 from "../../assets/img/testimonial-1.jpg";
 import profile2 from "../../assets/img/testimonial-2.jpg";
-import { Link } from "react-router-dom";
-export const Header = ({click}) => {
+import { Link, Navigate } from "react-router-dom";
+export const Header = ({ click }) => {
+  const [navigate, setNavigate] = useState(false);
+  const user = { active: false };
   const token = localStorage.getItem("token");
   const item = token ? JSON.parse(token) : "";
+  const Logout = () => {
+    if (token) {
+      ApiService.updateActive("users", item.user.id, user);
+    }
+    localStorage.clear("token");
+    setNavigate(true);
+  };
+
+  if (navigate) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <nav className="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
@@ -17,7 +29,7 @@ export const Header = ({click}) => {
           <i className="fa fa-user-edit" />
         </h2>
       </a>
-      <a herf="#" onClick={click} className="sidebar-toggler flex-shrink-0" >
+      <a herf="#" onClick={click} className="sidebar-toggler flex-shrink-0">
         <i className="fa fa-bars" />
       </a>
       <div className="navbar-nav align-items-center ms-auto">
@@ -120,7 +132,9 @@ export const Header = ({click}) => {
             className="dropdown-toggle nav-link nav-link1"
             data-bs-toggle="dropdown"
           >
-            <span className="d-none d-lg-inline-flex">{item.user.name}</span>
+            <span className="d-none d-lg-inline-flex">
+              {token ? item.user.name : ""}
+            </span>
           </a>
           <div className="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
             <Link to="/profile" className="dropdown-item">
@@ -129,7 +143,12 @@ export const Header = ({click}) => {
             <a href="#" className="dropdown-item">
               Settings
             </a>
-            <a href="#" className="dropdown-item">
+            <a
+              onClick={() => {
+                Logout();
+              }}
+              className="dropdown-item"
+            >
               Log Out
             </a>
           </div>

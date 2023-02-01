@@ -15,7 +15,6 @@ export const Order_Index = () => {
                         </div>
                         <table className="table">
                             <thead>
-
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">S_Total ($)</th> {/* SubTotal */}

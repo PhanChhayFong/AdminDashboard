@@ -45,8 +45,8 @@ export const SideBar = (open) => {
             </div>
           </div>
           <div className="ms-3">
-            <h6 className="mb-0">{item.user.name}</h6>
-            <span>{item.user.isAdmin?"Admin":"User"}</span>
+            <h6 className="mb-0">{token?item.user.name:""}</h6>
+            <span>{token?item.user.isAdmin?"Admin":"User":""}</span>
           </div>
         </div>
         <div className="navbar-nav w-100">
