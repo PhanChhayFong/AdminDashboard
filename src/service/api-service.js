@@ -28,10 +28,11 @@ class ApiService {
     return config(false).post(`${tb}`, data);
   }
   updateEnable(tb, id) {
+    console.log(id);
     return config(true).put(`/${tb}/enable/${id}`);
   }
   updateActive(tb, id, data) {
-    return config(true).put(`/${tb}/active/${id}`,data);
+    return config(true).put(`/${tb}/active/${id}`, data);
   }
   update(tb, id, data) {
     return config(false).put(`${tb}/${id}`, data);

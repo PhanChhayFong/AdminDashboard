@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Header } from "../../../components/Header/Header";
-import { SideBar } from "../../../components/SideBar/SideBar";
 import "./styles/product.css";
 import Swal from "sweetalert2";
 import ApiService from "../../../service/api-service";
@@ -91,9 +89,7 @@ export const Edit_Product = () => {
   };
   return (
     <>
-      <SideBar />
-      <div className="content mb-5">
-        <Header />
+      <div className="content open">
         <div className="container-fluid pt-4 px-4">
           <div className="row g-4">
             <div className="col-12">

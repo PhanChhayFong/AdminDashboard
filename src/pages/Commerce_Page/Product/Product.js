@@ -1,14 +1,10 @@
 import React from "react";
-import { Header } from "../../../components/Header/Header";
-import { SideBar } from "../../../components/SideBar/SideBar";
 import { Product_Index } from "../../../forms/Commerce/Product/Product_Index";
 
 export const Product = () => {
   return (
     <>
-      <SideBar />
-      <div className="content">
-        <Header />
+      <div className="content open">
         <Product_Index />
       </div>
     </>

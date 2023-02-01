@@ -1,10 +1,9 @@
-import { React, useRef, useState, useEffect } from "react";
-import userProfile from "../../assets/img/user.jpg";
+import { React, useState} from "react";
 import { NavLink, Link, Navigate } from "react-router-dom";
 import "./Sidebar.css";
 import ApiService from "../../service/api-service";
 
-export const SideBar = () => {
+export const SideBar = (open) => {
   const [navigate, setNavigate] = useState(false);
   const user = { active: false };
   const token = localStorage.getItem("token");
@@ -20,7 +19,7 @@ export const SideBar = () => {
     return <Navigate to="/" />;
   }
   return (
-    <div className="sidebar pe-4 pb-3 d-scroll-y">
+    <div className={`sidebar ${open.open?"open":""} pe-4 pb-3 d-scroll-y`}>
       <nav className="navbar bg-secondary navbar-dark">
         <Link to="/admin" className="navbar-brand mx-2 mb-3">
           <h3 className="text-primary">
@@ -37,20 +36,12 @@ export const SideBar = () => {
             />
             <div className="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1" /> */}
             <div
-              className="position-relative rounded-circle"
+              className="position-relative rounded-circle pixelated"
               style={{
-                width: 40,
-                height: 40,
                 backgroundImage: token ? `url(${item.user.image})` : "",
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "100%",
-                backgroundPosition: "center",
-                backgroundColor: "#0775d4",
               }}
             >
-              <div
-                className={"bg-success rounded-circle border border-2 border-white position-absolute bottom-0 p-1"}
-              />
+              <div className={"bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"} />
             </div>
           </div>
           <div className="ms-3">
@@ -88,21 +79,6 @@ export const SideBar = () => {
               <NavLink to="/order" className="nav-link dropdown-item bor-b">
                 <i className="fas fa-sort-amount-up-alt me-2" />
                 Order
-              </NavLink>
-              <NavLink to="/cart" className="nav-link dropdown-item bor-b">
-                <i className="fas fa-dolly-flatbed me-2" />
-                Shopping Cart
-              </NavLink>
-              <NavLink to="/shipping" className="nav-link dropdown-item bor-b">
-                <i className="fas fa-shipping-fast me-2" />
-                Shipping
-              </NavLink>
-              <NavLink
-                to="/transaction"
-                className="nav-link dropdown-item bor-b"
-              >
-                <i className="fas fa-cash-register me-2" />
-                Transaction
               </NavLink>
             </div>
           </div>

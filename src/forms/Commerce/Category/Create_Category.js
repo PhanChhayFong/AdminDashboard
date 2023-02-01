@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Header } from "../../../components/Header/Header";
-import { SideBar } from "../../../components/SideBar/SideBar";
 import ApiService from "../../../service/api-service";
 import Swal from "sweetalert2";
 window.Swal = Swal;
@@ -36,9 +34,7 @@ export const Create_Category = () => {
   };
   return (
     <>
-      <SideBar />
-      <div className="content">
-        <Header />
+    <div className="content open">
         <div className="container-fluid pt-4 px-4">
           <div className="row g-4">
             <div className="col-12">

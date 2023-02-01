@@ -1,27 +1,25 @@
 import React from "react";
+import "./Header.css";
+import ApiService from "../../service/api-service";
 import userProfile from "../../assets/img/user.jpg";
 import profile from "../../assets/img/user.jpg";
 import profile1 from "../../assets/img/testimonial-1.jpg";
 import profile2 from "../../assets/img/testimonial-2.jpg";
+import { Link } from "react-router-dom";
+export const Header = ({click}) => {
+  const token = localStorage.getItem("token");
+  const item = token ? JSON.parse(token) : "";
 
-export const Header = () => {
   return (
     <nav className="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
-      <a href="#" className="navbar-brand d-flex d-lg-none me-4">
+      <a href="index.html" className="navbar-brand d-flex d-lg-none me-4">
         <h2 className="text-primary mb-0">
           <i className="fa fa-user-edit" />
         </h2>
       </a>
-      <a href="#" className="sidebar-toggler flex-shrink-0">
+      <a herf="#" onClick={click} className="sidebar-toggler flex-shrink-0" >
         <i className="fa fa-bars" />
       </a>
-      <form className="d-none d-md-flex ms-4">
-        <input
-          className="form-control bg-dark border-0"
-          type="search"
-          placeholder="Search"
-        />
-      </form>
       <div className="navbar-nav align-items-center ms-auto">
         <div className="nav-item dropdown">
           <a
@@ -110,23 +108,24 @@ export const Header = () => {
             </a>
           </div>
         </div>
-        <div className="nav-item dropdown">
+        <div className="mx-3 d-flex align-items-center nav-item dropdown">
+          <div
+            className="rounded-circle pixelated mx-1"
+            style={{
+              backgroundImage: token ? `url(${item.user.image})` : "",
+            }}
+          ></div>
           <a
             href="#"
-            className="nav-link dropdown-toggle"
+            className="dropdown-toggle nav-link nav-link1"
             data-bs-toggle="dropdown"
           >
-            <img
-              className="rounded-circle me-lg-2"
-              src={userProfile}
-              style={{ width: 40, height: 40 }}
-            />
-            <span className="d-none d-lg-inline-flex">John Doe</span>
+            <span className="d-none d-lg-inline-flex">{item.user.name}</span>
           </a>
           <div className="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-            <a href="#" className="dropdown-item">
+            <Link to="/profile" className="dropdown-item">
               My Profile
-            </a>
+            </Link>
             <a href="#" className="dropdown-item">
               Settings
             </a>
