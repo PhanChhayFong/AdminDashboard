@@ -5,19 +5,14 @@ import ApiService from "../../service/api-service";
 
 export const SideBar = (open) => {
   const [navigate, setNavigate] = useState(false);
-  const user = { active: false };
   const token = localStorage.getItem("token");
   const item = token ? JSON.parse(token) : "";
   const Logout = () => {
-    if (token) {
-      ApiService.updateActive("users", item.user.id, user);
-    }
+    if (token) ApiService.updateActive("users", item.user.id, { active: false });
     localStorage.clear("token");
     setNavigate(true);
   };
-  if (navigate) {
-    return <Navigate to="/" />;
-  }
+  if (navigate) return <Navigate to="/" />;
   return (
     <div className={`sidebar ${open.open?"open":""} pe-4 pb-3 d-scroll-y`}>
       <nav className="navbar bg-secondary navbar-dark">

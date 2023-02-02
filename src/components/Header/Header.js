@@ -1,4 +1,4 @@
-import { React, useState} from "react";
+import { React, useState } from "react";
 import "./Header.css";
 import ApiService from "../../service/api-service";
 import profile from "../../assets/img/user.jpg";
@@ -7,21 +7,15 @@ import profile2 from "../../assets/img/testimonial-2.jpg";
 import { Link, Navigate } from "react-router-dom";
 export const Header = ({ click }) => {
   const [navigate, setNavigate] = useState(false);
-  const user = { active: false };
   const token = localStorage.getItem("token");
   const item = token ? JSON.parse(token) : "";
   const Logout = () => {
-    if (token) {
-      ApiService.updateActive("users", item.user.id, user);
-    }
+    if (token) ApiService.updateActive("users", item.user.id, { active: false });
     localStorage.clear("token");
     setNavigate(true);
   };
 
-  if (navigate) {
-    return <Navigate to="/" />;
-  }
-
+  if (navigate) return <Navigate to="/" />;
   return (
     <nav className="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
       <a href="index.html" className="navbar-brand d-flex d-lg-none me-4">
@@ -137,17 +131,17 @@ export const Header = ({ click }) => {
             </span>
           </a>
           <div className="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-            <Link to="/profile" className="dropdown-item">
+            <Link to={`/profile/${token ? item.user.id : ""}`} className="dropdown-item">
               My Profile
             </Link>
-            <a href="#" className="dropdown-item">
+            <Link to={`/profile/edit_profile/${token ? item.user.id : ""}`} className="dropdown-item">
               Settings
-            </a>
+            </Link>
             <a
               onClick={() => {
                 Logout();
               }}
-              className="dropdown-item"
+              className="dropdown-item m-pointer"
             >
               Log Out
             </a>

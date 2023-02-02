@@ -1,90 +1,223 @@
-import React from 'react';
-import { Link } from "react-router-dom";
-import User1 from "../../assets/img/user.jpg";
-
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import "./styles/user.css";
+import Swal from "sweetalert2";
+import ApiService from "../../../service/api-service";
+window.Swal = Swal;
 export const Edit_User_Profile = () => {
+  const params = useParams();
+  const [user, setUser] = useState([]);
+  const [img, setImg] = useState();
+  const [changed, setChanged] = useState(false);
+  useEffect(() => {
+    ApiService.get("users", params.id).then((res) => setUser(res.data));
+  }, []);
+  //edit new Image
+  const hiddenImageUpload = React.useRef(null);
+  const handleClick = () => hiddenImageUpload.current.click();
+  const handleInputChange = (event) => {
+    setImg(URL.createObjectURL(event.target.files[0]));
+    setUser({
+      ...user,
+      image: event.target.files[0],
+    });
+    setChanged(true);
+  };
+  //send data to api to update
+  const submit = async () => ApiService.update("users", params.id, user);
+  //alart popup box when go back to list without save
+  const alart = () => {
+    if (changed) {
+      Swal.fire({
+        title: "Do you want to save the changes?",
+        showDenyButton: true,
+        confirmButtonText: "Save",
+        denyButtonText: `Don't save`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          submit();
+          Swal.fire("Saved!", "", "success");
+        } else if (result.isDenied) {
+          Swal.fire("Changes are not saved", "", "info");
+        }
+      });
+    }
+  };
   return (
-    <>
     <div className="content open">
-        <div className="container-fluid pt-4 px-4">
-            <div className="row g-4">
-                <div className="col-12">
-                    <div className="bg-secondary rounded h-100 p-4">
-                        <form action="" method="PUT" enctype="multipart/form-data">
-                            
-                            <div className="row mb-4">
-                                <div className="col-md-6"><h3 className='fs-5'>My Profile</h3></div>
-                                <div className="col-md-6">
-                                    <Link to='/profile' className='btn btn-success btn-sm bg-success px-3 py-2 fw-bold float-end'><i className='fas fa-undo-alt me-2' />Back To Profile</Link>
-                                    <button className="btn btn-warning bg-warning btn-sm float-end px-4 py-2 me-2 fw-bold"><i className="fas fa-tools me-2"/>Update Profile</button>
-                                </div>
-                            </div>
-                            
-                            <div className="row mb-4">
-
-                                <div className="col-md-3">
-
-                                    <div className="mb-5">
-                                        <label htmlFor="image" className="form-label" >User Profile</label>
-                                        <input type="file" className="form-control" id="image" />
-                                    </div>
-
-                                    <div className="form-floating mb-3 d-flex justify-content-center align-item-center rounded-circle">
-                                        <img src={User1} className="rounded-circle border border-5 border-danger" width="250"/>
-                                    </div>
-
-
-                                </div>
-
-                                <div className="col-md-9">
-                                 
-
-                                    <div className="form-floating mb-3">
-                                        <input type="text" className="form-control" id="name" value="Ren Sophanarith" placeholder="name" />
-                                        <label for="name" className="form-label" >Name</label>
-                                        
-                                    </div>
-
-                                    <div className="form-floating mb-3">
-                                        <input type="email" className="form-control" id="email"  value="ren.sophanarith@gmail.com" placeholder="email" />
-                                        <label for="email" className="form-label" >Email</label>
-                                        
-                                    </div>
-
-                                    <div className="form-floating mb-3">
-                                        <input type="text" className="form-control" id="phone" value="096 999 9999" placeholder="phone"/>
-                                        <label className="form-label">Phone</label>
-                                        
-                                    </div>
-
-
-                                    <div className="form-floating mb-3">
-                                        <input type="date" className="form-control" id="date_of_birt" value="10-Jan-2000" placeholder="date_of_birth" />
-                                        <label for="date_of_birth" className="form-label" >Date of Birth</label>
-                                        
-                                    </div>
-
-                                 
-                                    <hr className="border border-5 border-danger"/>
-
-                              
-
-                                    <div className="form-floating mb-3">
-                                        <textarea class="form-control company-address" placeholder="address">
-                                             H2400, St2400, Sangkat Sensok II, Khan Sensok, Phnom Penh, Cambodia 
-                                        </textarea>
-                                        <label htmlFor="address" className="form-label">Address</label>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </form>
-                    </div>
+      <div className="container-fluid pt-4 px-4">
+        <div className="row g-4">
+          <div className="col-12">
+            <div className="bg-secondary rounded h-100 p-4">
+              <form action="" method="PUT" encType="multipart/form-data">
+                <div className="row mb-4">
+                  <div className="col-md-6">
+                    <h3 className="fs-5">My Profile</h3>
+                  </div>
+                  <div className="col-md-6">
+                    <Link
+                      to={`/profile/${params.id}`}
+                      onClick={() => alart()}
+                      className="btn btn-success btn-sm bg-success px-3 py-2 fw-bold float-end"
+                    >
+                      <i className="fas fa-undo-alt me-2" />
+                      Back To Profile
+                    </Link>
+                    {changed ? (
+                      <Link
+                        to={`/profile/${params.id}`}
+                        onClick={() => submit()}
+                        className="btn btn-warning bg-warning btn-sm float-end px-4 py-2 me-2 fw-bold"
+                      >
+                        <i className="fas fa-tools me-2" />
+                        Update Profile
+                      </Link>
+                    ) : (
+                      ""
+                    )}
+                  </div>
                 </div>
+
+                <div className="row mb-4">
+                  <div className="col-md-3">
+                    <div className="form-floating mb-3 d-flex justify-content-center align-item-center rounded-circle">
+                      <div
+                        className="position-relative rounded-circle pixelate border border-5 border-success"
+                        style={{
+                          backgroundImage: img
+                            ? `url(${URL.createObjectURL(user.image)})`
+                            : `url(${user.image})`,
+                        }}
+                      ></div>
+                    </div>
+                    <div
+                      className="mb-5"
+                      style={{
+                        width: "auto",
+                        margin: "10px auto",
+                        textAlign: "center",
+                      }}
+                    >
+                      <label
+                        onClick={handleClick}
+                        className="form-control"
+                        style={{ cursor: "pointer" }}
+                      >
+                        Select Image
+                      </label>
+                      <input
+                        ref={hiddenImageUpload}
+                        type="file"
+                        style={{ display: "none" }}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="col-md-9">
+                    <div className="form-floating mb-3">
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="name"
+                        placeholder="name"
+                        value={user.name}
+                        onChange={(e) => {
+                          setChanged(true);
+                          setUser({
+                            ...user,
+                            name: e.target.value,
+                          });
+                        }}
+                      />
+                      <label htmlFor="name" className="form-label">
+                        Name
+                      </label>
+                    </div>
+
+                    <div className="form-floating mb-3">
+                      <input
+                        type="email"
+                        className="form-control"
+                        id="email"
+                        placeholder="email"
+                        value={user.email}
+                        onChange={(e) => {
+                          setChanged(true);
+                          setUser({
+                            ...user,
+                            email: e.target.value,
+                          });
+                        }}
+                      />
+                      <label htmlFor="email" className="form-label">
+                        Email
+                      </label>
+                    </div>
+
+                    <div className="form-floating mb-3">
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="phone"
+                        placeholder="phone"
+                        value={user.phone}
+                        onChange={(e) => {
+                          setChanged(true);
+                          setUser({
+                            ...user,
+                            phone: e.target.value,
+                          });
+                        }}
+                      />
+                      <label className="form-label">Phone</label>
+                    </div>
+
+                    <div className="form-floating mb-3">
+                      <input
+                        type="date"
+                        style={{ colorScheme: "dark" }}
+                        className="form-control"
+                        id="date_of_birt"
+                        placeholder="date_of_birth"
+                        value={user.DOB}
+                        onChange={(e) => {
+                          setChanged(true);
+                          setUser({
+                            ...user,
+                            DOB: e.target.value,
+                          });
+                        }}
+                      />
+                      <label htmlFor="date_of_birth" className="form-label">
+                        Date of Birth
+                      </label>
+                    </div>
+
+                    <div className="form-floating mb-3">
+                      <textarea
+                        className="form-control company-address"
+                        placeholder="address"
+                        value={user.address}
+                        onChange={(e) => {
+                          setChanged(true);
+                          setUser({
+                            ...user,
+                            address: e.target.value,
+                          });
+                        }}
+                      ></textarea>
+                      <label htmlFor="address" className="form-label">
+                        Address
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </form>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-</>
-  )
-}
+  );
+};

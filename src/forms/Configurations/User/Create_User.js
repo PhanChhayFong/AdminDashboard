@@ -130,7 +130,7 @@ export const Create_User = () => {
 
                       <div className="form-floating mb-3">
                         <input
-                          type="number"
+                          type="text"
                           className="form-control"
                           id="phone"
                           placeholder="phone"

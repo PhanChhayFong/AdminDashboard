@@ -1,8 +1,15 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import User1 from "../../assets/img/user.jpg";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import "./styles/user.css";
+import ApiService from "../../../service/api-service";
 
 export const User_Profile = () => {
+  const params = useParams();
+  const [user, setUser] = useState([]);
+  //getting all data from tbProduct and tbCategory
+  useEffect(() => {
+    ApiService.get("users", params.id).then((res) => setUser(res.data));
+  }, []);
   return (
     <>
       <div className="content open">
@@ -17,7 +24,7 @@ export const User_Profile = () => {
                     </div>
                     <div className="col-md-6">
                       <Link
-                        to="/profile/edit_profile"
+                        to={`/profile/edit_profile/${user.id}`}
                         className="btn btn-success btn-sm bg-success px-3 py-2 fw-bold float-end"
                       >
                         <i className="fas fa-tools me-2" />
@@ -29,33 +36,17 @@ export const User_Profile = () => {
                   <div className="row mb-4">
                     <div className="col-md-3">
                       <div className="form-floating mb-3 d-flex justify-content-center align-item-center rounded-circle">
-                        <img
-                          src={User1}
-                          className="rounded-circle border border-5 border-danger"
-                          width="250"
-                        />
+                        <div
+                          className="position-relative rounded-circle pixelate border border-5 border-success"
+                          style={{
+                            backgroundImage: `url(${user.image})`,
+                          }}
+                        ></div>
                       </div>
 
-                      <div className="form-floating mb-3">
-                        <input
-                          type="text"
-                          className="form-control"
-                          value="Ren Sophanarith"
-                          placeholder="name"
-                          disabled
-                        />
-                        <label className="form-label">Name</label>
-                      </div>
-
-                      <div className="form-floating mb-3">
-                        <input
-                          type="text"
-                          className="form-control"
-                          value="ren.sophanarith@gmail.com"
-                          placeholder="email"
-                          disabled
-                        />
-                        <label className="form-label">Email</label>
+                      <div className="mb-3 text-center">
+                        <h4>{user.name}</h4>
+                        <span>{user.isAdmin ? "Admin" : "User"}</span>
                       </div>
                     </div>
 
@@ -64,7 +55,7 @@ export const User_Profile = () => {
                         <input
                           type="text"
                           className="form-control"
-                          value="096 999 9999"
+                          value={`${user.phone}`}
                           placeholder="phone"
                           disabled
                         />
@@ -75,7 +66,7 @@ export const User_Profile = () => {
                         <input
                           type="text"
                           className="form-control"
-                          value="10-Jan-2000"
+                          value={`${user.DOB}`}
                           placeholder="date_of_birt"
                           disabled
                         />
@@ -86,21 +77,19 @@ export const User_Profile = () => {
                         <input
                           type="text"
                           className="form-control"
-                          value="Admin"
-                          placeholder="Role"
+                          value={`${user.email}`}
+                          placeholder="email"
                           disabled
                         />
-                        <label className="form-label">Role</label>
+                        <label className="form-label">Email</label>
                       </div>
-
-                      <hr className="border border-5 border-danger" />
 
                       <div className="form-floating mb-3">
                         <textarea
                           className="form-control company-address"
                           placeholder="address"
                           disabled
-                          value="H2400, St2400, Sangkat Sensok II, Khan Sensok, Phnom Penh, Cambodia"
+                          value={`${user.address}`}
                         ></textarea>
                         <label className="form-label">Address</label>
                       </div>

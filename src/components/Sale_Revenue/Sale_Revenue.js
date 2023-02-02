@@ -18,7 +18,7 @@ export const Sale_Revenue = () => {
                     <div className="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
                         <i className="fa fa-chart-bar fa-3x text-primary" />
                         <div className="ms-3">
-                            <p className="mb-2">Total Sale</p>
+                            <p className="mb-2">Total Inbound</p>
                             <h6 className="mb-0">$1234</h6>
                         </div>
                     </div>
@@ -27,7 +27,7 @@ export const Sale_Revenue = () => {
                     <div className="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
                         <i className="fa fa-chart-area fa-3x text-primary" />
                         <div className="ms-3">
-                            <p className="mb-2">Today Revenue</p>
+                            <p className="mb-2">Total</p>
                             <h6 className="mb-0">$1234</h6>
                         </div>
                     </div>
@@ -36,7 +36,7 @@ export const Sale_Revenue = () => {
                     <div className="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
                         <i className="fa fa-chart-pie fa-3x text-primary" />
                         <div className="ms-3">
-                            <p className="mb-2">Total Revenue</p>
+                            <p className="mb-2">Sell & Tax</p>
                             <h6 className="mb-0">$1234</h6>
                         </div>
                     </div>

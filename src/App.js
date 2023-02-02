@@ -72,8 +72,8 @@ function App() {
       <Route path="/order/order_detail/:id" element={<ProtectedRoute><Order_Detail/></ProtectedRoute>}/>
       
       {/* Link for User Profile */}
-      <Route path="/profile" element={<ProtectedRoute><Profile/></ProtectedRoute>}></Route>
-      <Route path="/profile/edit_profile" element={<ProtectedRoute><Edit_User_Profile/></ProtectedRoute>}></Route>
+      <Route path="/profile/:id" element={<ProtectedRoute><Profile/></ProtectedRoute>}></Route>
+      <Route path="/profile/edit_profile/:id" element={<ProtectedRoute><Edit_User_Profile/></ProtectedRoute>}></Route>
       
       {/* Link for Login Form */}
       <Route path="/" element={<Login/>}/>

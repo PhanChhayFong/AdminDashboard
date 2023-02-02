@@ -12,8 +12,7 @@ export const Edit_Slideshow = () => {
   const [changed, setChanged] = useState(false);
   const [img, setImg] = useState();
   useEffect(() => {
-    ApiService
-      .get(tb,params.id)
+    ApiService.get(tb, params.id)
       .then((res) => {
         setSliders(res.data);
       })
@@ -51,13 +50,7 @@ export const Edit_Slideshow = () => {
     setChanged(true);
   };
 
-  const submit = async () => {
-    // const url = "http://localhost:5000/api/v1/sliders/";
-    // axios.put(url + params.id, slider, {
-    //   headers: { "Content-Type": "multipart/form-data" },
-    // });
-    ApiService.update(tb,params.id, slider);
-  };
+  const submit = async () => ApiService.update(tb, params.id, slider);
   return (
     <>
       <div className="content open">
