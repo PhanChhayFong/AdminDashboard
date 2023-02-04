@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./styles/user.css";
 import ApiService from "../../../service/api-service";
-import Swal from "sweetalert2";
-window.Swal = Swal;
+import Alart from "../../../service/Alart";
 export const Create_User = () => {
   const tb = "users";
   const [checked, setChecked] = useState(true);
@@ -31,14 +30,12 @@ export const Create_User = () => {
   };
   const submit = async () => {
     if (
-      !user.name == "" ||
-      !user.email == "" ||
-      !user.password == "" ||
-      !user.image == ""
-    ) {
-      ApiService.create(tb, user);
-    }
-    // console.log(user);
+      user.name != "" ||
+      user.email != "" ||
+      user.password != "" ||
+      user.image != ""
+    ) ApiService.create(tb, user);
+    else Alart.alartCreate("User", "Name , Email, Password and Image");
   };
   return (
     <>

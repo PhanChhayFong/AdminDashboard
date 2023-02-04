@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import "./styles/user.css";
-import Swal from "sweetalert2";
+import Alart from "../../../service/Alart";
 import ApiService from "../../../service/api-service";
-window.Swal = Swal;
 export const Edit_User_Profile = () => {
   const params = useParams();
   const [user, setUser] = useState([]);
@@ -25,24 +24,6 @@ export const Edit_User_Profile = () => {
   };
   //send data to api to update
   const submit = async () => ApiService.update("users", params.id, user);
-  //alart popup box when go back to list without save
-  const alart = () => {
-    if (changed) {
-      Swal.fire({
-        title: "Do you want to save the changes?",
-        showDenyButton: true,
-        confirmButtonText: "Save",
-        denyButtonText: `Don't save`,
-      }).then((result) => {
-        if (result.isConfirmed) {
-          submit();
-          Swal.fire("Saved!", "", "success");
-        } else if (result.isDenied) {
-          Swal.fire("Changes are not saved", "", "info");
-        }
-      });
-    }
-  };
   return (
     <div className="content open">
       <div className="container-fluid pt-4 px-4">
@@ -57,7 +38,7 @@ export const Edit_User_Profile = () => {
                   <div className="col-md-6">
                     <Link
                       to={`/profile/${params.id}`}
-                      onClick={() => alart()}
+                      onClick={() => Alart.alartSave(changed, submit())}
                       className="btn btn-success btn-sm bg-success px-3 py-2 fw-bold float-end"
                     >
                       <i className="fas fa-undo-alt me-2" />

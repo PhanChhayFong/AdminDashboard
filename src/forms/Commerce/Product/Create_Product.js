@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ApiService from "../../../service/api-service";
+import Alart from "../../../service/Alart";
 import "./styles/product.css";
-import Swal from "sweetalert2";
-window.Swal = Swal;
 
 export const Create_Product = () => {
   const tbCategory = "categories";
@@ -23,12 +22,8 @@ export const Create_Product = () => {
   const [checked, setChecked] = useState(true);
   useEffect(() => {
     ApiService.getAll(tbCategory)
-      .then((res) => {
-        setCategories(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then((res) => setCategories(res.data))
+      .catch((err) => console.log(err));
   }, []);
   //set Image
   const [img, setImg] = useState();
@@ -51,20 +46,13 @@ export const Create_Product = () => {
   };
   const submit = async () => {
     if (
-      !product.name == "" ||
-      !product.description == "" ||
-      !product.image == "" ||
-      !product.category == ""
-    ) {
+      product.name != "" ||
+      product.description != "" ||
+      product.image != "" ||
+      product.category != ""
+    )
       ApiService.create(tbProduct, product);
-    } else {
-      Swal.fire({
-        icon: "error",
-        title: "Product Can't be Created",
-        text: "Name, Description, Image and Category are required!!!",
-      });
-    }
-    // console.log(product);
+    else Alart.alartCreate("Product", "Name, Description, Image and Category");
   };
   return (
     <>

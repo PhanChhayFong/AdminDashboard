@@ -2,13 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ApiService from "../../../service/api-service";
 import Pagination from "../../../components/Pagination";
-import Swal from "sweetalert2";
-window.Swal = Swal;
+import Alart from "../../../service/Alart";
 
 export const Product_Index = () => {
   const tb = "products";
   const [products, setProducts] = useState([]);
-  const [category, setCategory] = useState([]);
   const [reRender, setReRender] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setitemsPerPage] = useState(5);
@@ -16,43 +14,17 @@ export const Product_Index = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-  const changeProductPP = (e) => setitemsPerPage(e.target.value);
+  const changeProductPP = (e) => setitemsPerPage(e);
   useEffect(() => {
     ApiService.getAll(tb).then((res) => {
       setProducts(res.data);
-      // console.log(res.data);
-      // setCategory(res.data.category);
     });
-    // ApiService.getAll("categories").then((res) => {
-    //   setCategory(res.data);
-    // });
     setReRender(false);
   }, [reRender]);
-  const alartDelete = (id) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire("Deleted!", "Your file has been deleted.", "success");
-        ApiService.delete(tb, id);
-        setReRender(true);
-      }
-    });
-  };
   const stockStatus = (countInStock) => {
-    if (countInStock == 0) {
-      return "Out Of Stock";
-    } else if (countInStock < 20) {
-      return "Low In Stock";
-    } else {
-      return "In Stock";
-    }
+    if (countInStock == 0) return "Out Of Stock";
+    else if (countInStock < 20) return "Low In Stock";
+    else return "In Stock";
   };
   return (
     <div className="container-fluid pt-4 px-4">
@@ -102,7 +74,9 @@ export const Product_Index = () => {
                     <td>{product.sku}</td>
                     <td>{stockStatus(`${product.countInStock}`)}</td>
                     <td>{product.name}</td>
-                    <td>{product.category == null ? "" : product.category.name}</td>
+                    <td>
+                      {product.category == null ? "" : product.category.name}
+                    </td>
                     <td>{product.countInStock}</td>
                     <td>$ {product.regularPrice}</td>
                     <td>$ {product.salePrice}</td>
@@ -117,7 +91,8 @@ export const Product_Index = () => {
                       <a
                         className="btn btn-danger btn-sm"
                         onClick={() => {
-                          alartDelete(`${product.id}`);
+                          Alart.alartDelete(tb, `${product.id}`);
+                          setReRender(true);
                         }}
                         title="Delete"
                       >
@@ -132,6 +107,7 @@ export const Product_Index = () => {
               <div>
                 <Pagination
                   itemsPerPage={itemsPerPage}
+                  currentPage={currentPage}
                   totalItems={products.length}
                   paginate={paginate}
                 />
@@ -140,9 +116,12 @@ export const Product_Index = () => {
               ""
             )}
             <div>
-              <label>Set Sliders Per Page</label>
+              <label>Set Products Per Page</label>
               <select
-                onChange={changeProductPP}
+                onChange={(e) => {
+                  changeProductPP(e.target.value);
+                  setCurrentPage(1);
+                }}
                 className="bg-secondary text-light ms-2"
                 value={itemsPerPage}
               >

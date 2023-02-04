@@ -1,14 +1,12 @@
 import { React, useState, useEffect } from "react";
 import { Link, Navigate } from "react-router-dom";
 import ApiService from "../../service/api-service";
+import Alart from "../../service/Alart";
 import axios from "axios";
-import Swal from "sweetalert2";
-window.Swal = Swal;
 
 export const Login_Form = () => {
   const [navigate, setNavigate] = useState(false);
   const [passwordShown, setPasswordShown] = useState(false);
-  const togglePassword = () => setPasswordShown(!passwordShown);
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -19,26 +17,6 @@ export const Login_Form = () => {
       setNavigate(true);
     }
   }, []);
-  const alartLogin = (error) => {
-    Swal.fire({
-      icon: "error",
-      title: "Can't Login",
-      text: `Please Enter Your ${error}`,
-    });
-  };
-  const alartLoginError = (status, error) => {
-    Swal.fire({
-      icon: "error",
-      title: `Error ${status} !!!`,
-      text: `${error}`,
-    });
-  };
-  const alartLoginSuccess = () => {
-    Swal.fire({
-      icon: "success",
-      title: `Login Success`,
-    });
-  };
   const submit = async () => {
     if (user.email != "" && user.password != "") {
       const res = await axios
@@ -50,7 +28,10 @@ export const Login_Form = () => {
         )
         .catch((err) => {
           if (err.response)
-            return alartLoginError(err.response.status, err.response.data);
+            return Alart.alartLoginError(
+              err.response.status,
+              err.response.data
+            );
         });
       //update user active to true
       ApiService.updateActive("users", res.data.user.id, { active: true });
@@ -68,11 +49,13 @@ export const Login_Form = () => {
       //set item into localStorage
       localStorage.setItem("token", JSON.stringify(item));
       //calling success function Login
-      alartLoginSuccess();
+      Alart.alartLoginSuccess();
       //go to admin page
       setNavigate(true);
     } else {
-      user.email ? alartLogin("Password") : alartLogin("Email");
+      user.email
+        ? Alart.alartLoginEmpty("Password")
+        : Alart.alartLoginEmpty("Email");
     }
   };
   if (navigate) {
@@ -141,7 +124,9 @@ export const Login_Form = () => {
                       top: 25,
                       right: 20,
                     }}
-                    onClick={togglePassword}
+                    onClick={() => {
+                      setPasswordShown(Alart.eye(passwordShown));
+                    }}
                   />
                   <label htmlFor="floatingPassword">Password</label>
                 </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import Swal from "sweetalert2";
 import ApiService from "../../../service/api-service";
+import Swal from "sweetalert2";
 window.Swal = Swal;
 
 export const Edit_Category = () => {

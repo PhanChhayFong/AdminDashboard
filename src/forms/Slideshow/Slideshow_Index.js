@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ApiService from "../../service/api-service";
 import Pagination from "../../components/Pagination";
-import Swal from "sweetalert2";
-window.Swal = Swal;
+import Alart from "../../service/Alart";
 export const Slideshow_Index = () => {
   const [sliders, setSliders] = useState([]);
   const [reRender, setReRender] = useState(false);
@@ -16,53 +15,16 @@ export const Slideshow_Index = () => {
   const tb = "sliders";
   useEffect(() => {
     setReRender(false);
-    ApiService.getAll(tb)
-      .then((res) => {
-        setSliders(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    ApiService.getAll(tb).then((res) => setSliders(res.data));
   }, [reRender]);
-  const toggleEye = (enable) => {
-    if (enable == "true") {
-      return <i className="fas fa-eye" />;
-    }
-    return <i className="fas fa-eye-slash" />;
-  };
-  const alartDelete = (id) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire("Deleted!", "Your file has been deleted.", "success");
-        ApiService.delete(tb, id);
-        setReRender(true);
-      }
-    });
-  };
-  const alartError = (error) => {
-    Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "Can't Move " + error,
-    });
-  };
   const swapOrder = (Cid, Nid) => {
-    if (Nid != "Up" && Nid != "Down") {
-      ApiService.updateOrder(tb, Cid, Nid);
-      // refresh();
-      setReRender(true);
-    } else alartError(Nid);
+    Nid != "Up" && Nid != "Down"
+      ? ApiService.updateOrder(tb, Cid, Nid)
+      : Alart.alartSwap(Nid);
+    setReRender(true);
+    // Alart.refresh();
   };
-  const changeSliderPP = (e) => setitemsPerPage(e.target.value);
-  const refresh = () => window.location.reload(true);
+  const changeSliderPP = (e) => setitemsPerPage(e);
   return (
     <div className="container-fluid pt-4 px-4">
       <div className="row g-4">
@@ -105,7 +67,7 @@ export const Slideshow_Index = () => {
               <tbody>
                 {currentItems.map((slider, i) => (
                   <tr key={slider.id}>
-                    <th scope="row">{i + 1 + indexOfFirstItem}</th>
+                    <th>{i + 1 + indexOfFirstItem}</th>
                     <td>
                       <img src={slider.image} height="50px" />
                     </td>
@@ -116,13 +78,16 @@ export const Slideshow_Index = () => {
                       <a
                         className="btn btn-success btn-sm me-2"
                         onClick={() => {
-                          toggleEye(`${slider.enable}`);
                           ApiService.updateEnable(tb, `${slider.id}`);
                           setReRender(true);
                         }}
                         title={`${slider.enable}`}
                       >
-                        {toggleEye(`${slider.enable}`)}
+                        <i
+                          className={`fas fa-eye${
+                            slider.enable ? "" : "-slash"
+                          }`}
+                        />
                       </a>
                       <Link
                         to={`/slideshow/edit_slideshow/${slider.id}`}
@@ -134,7 +99,8 @@ export const Slideshow_Index = () => {
                       <a
                         className="btn btn-danger btn-sm me-2"
                         onClick={() => {
-                          alartDelete(`${slider.id}`);
+                          Alart.alartDelete(tb, `${slider.id}`);
+                          setReRender(true);
                         }}
                         title="Delete"
                       >
@@ -173,6 +139,7 @@ export const Slideshow_Index = () => {
               <div>
                 <Pagination
                   itemsPerPage={itemsPerPage}
+                  currentPage={currentPage}
                   totalItems={sliders.length}
                   paginate={paginate}
                 />
@@ -183,7 +150,10 @@ export const Slideshow_Index = () => {
             <div>
               <label>Set Sliders Per Page</label>
               <select
-                onChange={changeSliderPP}
+                onChange={(e) => {
+                  changeSliderPP(e.target.value);
+                  setCurrentPage(1);
+                }}
                 className="bg-secondary text-light ms-2"
                 value={itemsPerPage}
               >

@@ -54,7 +54,7 @@ export const User_Profile = () => {
                       <div className="form-floating mb-3">
                         <input
                           type="text"
-                          className="form-control"
+                          className="form-control text-dark"
                           value={`${user.phone}`}
                           placeholder="phone"
                           disabled
@@ -65,7 +65,7 @@ export const User_Profile = () => {
                       <div className="form-floating mb-3">
                         <input
                           type="text"
-                          className="form-control"
+                          className="form-control text-dark"
                           value={`${user.DOB}`}
                           placeholder="date_of_birt"
                           disabled
@@ -76,7 +76,7 @@ export const User_Profile = () => {
                       <div className="form-floating mb-3">
                         <input
                           type="text"
-                          className="form-control"
+                          className="form-control text-dark"
                           value={`${user.email}`}
                           placeholder="email"
                           disabled
@@ -86,7 +86,7 @@ export const User_Profile = () => {
 
                       <div className="form-floating mb-3">
                         <textarea
-                          className="form-control company-address"
+                          className="form-control text-dark company-address"
                           placeholder="address"
                           disabled
                           value={`${user.address}`}

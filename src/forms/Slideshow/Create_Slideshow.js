@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ApiService from "../../service/api-service";
-import Swal from "sweetalert2";
-window.Swal = Swal;
+import Alart from "../../service/Alart";
 
 export const Create_Slideshow = () => {
   const tb = "sliders";
@@ -26,13 +25,6 @@ export const Create_Slideshow = () => {
       image: event.target.files[0],
     });
   };
-  const alart = () => {
-    Swal.fire({
-      icon: "error",
-      title: "Slider Can't be Created",
-      text: "Title and Description are required!!!",
-    });
-  };
   useEffect(() => {
     ApiService.getLastOrder(tb)
       .then((res) => {
@@ -46,11 +38,9 @@ export const Create_Slideshow = () => {
       });
   }, []);
   const submit = async () => {
-    if (!slider.title == "" || !slider.description == "") {
+    if (slider.title != "" || slider.description != "")
       ApiService.create(tb, slider);
-    } else {
-      alart();
-    }
+    else Alart.alartCreate("Slider", "Title and Description");
   };
   return (
     <>

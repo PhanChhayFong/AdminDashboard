@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ApiService from "../../../service/api-service";
 import Pagination from "../../../components/Pagination";
-import Swal from "sweetalert2";
-window.Swal = Swal;
+import Alart from "../../../service/Alart";
 
 export const Category_Index = () => {
   const [categories, setCategories] = useState([]);
@@ -15,7 +14,7 @@ export const Category_Index = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = categories.slice(indexOfFirstItem, indexOfLastItem);
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-  const changeCategoryPP = (e) => setitemsPerPage(e.target.value);
+  const changeCategoryPP = (e) => setitemsPerPage(e);
   const tb = "categories";
 
   useEffect(() => {
@@ -28,23 +27,6 @@ export const Category_Index = () => {
       });
     setReRender(false);
   }, [reRender]);
-  const alartDelete = (id) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire("Deleted!", "Your file has been deleted.", "success");
-        ApiService.delete(tb,id);
-        setReRender(true);
-      }
-    });
-  };
   return (
     <div className="container-fluid pt-4 px-4">
       <div className="row g-4">
@@ -92,7 +74,8 @@ export const Category_Index = () => {
                       <a
                         className="btn btn-danger btn-sm"
                         onClick={() => {
-                          alartDelete(`${category._id}`);
+                          Alart.alartDelete(tb, `${category.id}`);
+                          setReRender(true);
                         }}
                         title="Delete Category"
                       >
@@ -106,6 +89,7 @@ export const Category_Index = () => {
             {categories.length > itemsPerPage ? (
               <div>
                 <Pagination
+                  currentPage={currentPage}
                   itemsPerPage={itemsPerPage}
                   totalItems={categories.length}
                   paginate={paginate}
@@ -115,9 +99,12 @@ export const Category_Index = () => {
               ""
             )}
             <div>
-              <label>Set Sliders Per Page</label>
+              <label>Set Catetories Per Page</label>
               <select
-                onChange={changeCategoryPP}
+                onChange={(e) => {
+                  changeCategoryPP(e.target.value);
+                  setCurrentPage(1);
+                }}
                 className="bg-secondary text-light ms-2"
                 value={itemsPerPage}
               >

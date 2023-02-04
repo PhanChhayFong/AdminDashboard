@@ -12,13 +12,7 @@ export const Edit_Slideshow = () => {
   const [changed, setChanged] = useState(false);
   const [img, setImg] = useState();
   useEffect(() => {
-    ApiService.get(tb, params.id)
-      .then((res) => {
-        setSliders(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    ApiService.get(tb, params.id).then((res) => setSliders(res.data));
   }, []);
   const alart = () => {
     if (changed) {

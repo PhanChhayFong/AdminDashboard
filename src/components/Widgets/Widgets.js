@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import profile from "../../assets/img/user.jpg";
 import profile1 from "../../assets/img/testimonial-1.jpg";
 import profile2 from "../../assets/img/testimonial-2.jpg";
+// import Calendars from "../../service/Calenders";
 
 export const Widgets = () => {
   return (
@@ -11,7 +12,7 @@ export const Widgets = () => {
           <div className="h-100 bg-secondary rounded p-4">
             <div className="d-flex align-items-center justify-content-between mb-2">
               <h6 className="mb-0">Messages</h6>
-              <a >Show All</a>
+              <a>Show All</a>
             </div>
             <div className="d-flex align-items-center border-bottom py-3">
               <img
@@ -75,16 +76,16 @@ export const Widgets = () => {
           <div className="h-100 bg-secondary rounded p-4">
             <div className="d-flex align-items-center justify-content-between mb-4">
               <h6 className="mb-0">Calender</h6>
-              <a >Show All</a>
+              <a>Show All</a>
             </div>
-            <div id="calender" />
+            {/* <Calendars/> */}
           </div>
         </div>
         <div className="col-sm-12 col-md-6 col-xl-4">
           <div className="h-100 bg-secondary rounded p-4">
             <div className="d-flex align-items-center justify-content-between mb-4">
               <h6 className="mb-0">To Do List</h6>
-              <a >Show All</a>
+              <a>Show All</a>
             </div>
             <div className="d-flex mb-2">
               <input

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import "./styles/user.css";
-import Swal from "sweetalert2";
 import ApiService from "../../../service/api-service";
+import Swal from "sweetalert2";
 window.Swal = Swal;
 export const Edit_User = () => {
   const tb = "users";

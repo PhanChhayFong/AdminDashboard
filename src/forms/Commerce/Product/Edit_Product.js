@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import "./styles/product.css";
-import Swal from "sweetalert2";
 import ApiService from "../../../service/api-service";
+import Swal from "sweetalert2";
 window.Swal = Swal;
 
 export const Edit_Product = () => {
@@ -23,7 +23,7 @@ export const Edit_Product = () => {
     ApiService.get(tbProduct, params.id)
       .then((res) => {
         setProducts(res.data);
-        setProductsCate(res.data.category==null?"":res.data.category);
+        setProductsCate(res.data.category == null ? "" : res.data.category);
         setimgsArray(res.data.images);
       })
       .catch((err) => {

@@ -1,8 +1,7 @@
 import { Link, Navigate } from "react-router-dom";
-import { React, useRef, useState, useEffect } from "react";
+import { React, useState } from "react";
+import Alart from "../../service/Alart";
 import axios from "axios";
-import Swal from "sweetalert2";
-window.Swal = Swal;
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -10,16 +9,7 @@ const REGISTER_URL = "/register";
 
 export const Register_Form = () => {
   const [passwordShown, setPasswordShown] = useState(false);
-  const togglePassword = () => setPasswordShown(!passwordShown);
   const [repasswordShown, setRePasswordShown] = useState(false);
-  const toggleRePassword = () => setRePasswordShown(!repasswordShown);
-  const alartPasswordError = (fill) => {
-    Swal.fire({
-      icon: "error",
-      title: `Error !!!`,
-      text: `Please Enter ${fill? "Confirm Password Again":"Username, Email, Password"} !!!`,
-    });
-  };
   const [matchPass, setMatchPass] = useState("");
   const [user, setUser] = useState({
     name: "",
@@ -37,8 +27,8 @@ export const Register_Form = () => {
           headers: { "Content-Type": "application/json" },
         });
         setNavigate(true);
-      } else alartPasswordError(true)
-    }else alartPasswordError(false)
+      } else Alart.alartPasswordError(true)
+    }else Alart.alartPasswordError(false)
   };
   return (
     <div className="container-fluid position-relative d-flex p-0">
@@ -118,7 +108,9 @@ export const Register_Form = () => {
                       top: 25,
                       right: 20,
                     }}
-                    onClick={togglePassword}
+                    onClick={()=>{
+                      setPasswordShown(Alart.eye(passwordShown))
+                    }}
                   />
                   <label htmlFor="floatingPassword">Password</label>
                 </div>
@@ -143,7 +135,7 @@ export const Register_Form = () => {
                       top: 25,
                       right: 20,
                     }}
-                    onClick={toggleRePassword}
+                    onClick={()=>{setRePasswordShown(Alart.eye(repasswordShown))}}
                   />
                   <label htmlFor="floatingPassword">Confirm Password</label>
                 </div>

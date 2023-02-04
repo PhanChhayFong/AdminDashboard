@@ -54,7 +54,7 @@ function App() {
       <Route path="/slideshow/edit_slideshow/:id" element={<ProtectedRoute><Edit_Slideshow /></ProtectedRoute>}/>
 
       {/* Link for Company Form */}
-      <Route path="/company/edit_company" element={<ProtectedRoute><Edit_Company /></ProtectedRoute>}/>
+      <Route path="/company/edit_company/:id" element={<ProtectedRoute><Edit_Company /></ProtectedRoute>}/>
 
       {/* Link for User Form */}
       <Route path="/user/create_user" element={<ProtectedRoute><Create_User /></ProtectedRoute>}/>
