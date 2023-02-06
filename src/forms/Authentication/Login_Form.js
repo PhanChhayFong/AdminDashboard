@@ -13,9 +13,7 @@ export const Login_Form = () => {
   });
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) {
-      setNavigate(true);
-    }
+    if (token) setNavigate(true);
   }, []);
   const submit = async () => {
     if (user.email != "" && user.password != "") {
@@ -33,25 +31,27 @@ export const Login_Form = () => {
               err.response.data
             );
         });
-      //update user active to true
-      ApiService.updateActive("users", res.data.user.id, { active: true });
-      res.data.user.active = true;
-      //get current date
-      const date = new Date();
-      //set expire date
-      date.setHours(date.getHours() + 1);
-      //push user, date expire, token into item
-      const item = {
-        user: res.data.user,
-        token: res.data.token,
-        expDate: date,
-      };
-      //set item into localStorage
-      localStorage.setItem("token", JSON.stringify(item));
-      //calling success function Login
-      Alart.alartLoginSuccess();
-      //go to admin page
-      setNavigate(true);
+      if (res) {
+        //update user active to true
+        ApiService.updateActive("users", res.data.user.id, { active: true });
+        res.data.user.active = true;
+        //get current date
+        const date = new Date();
+        //set expire date
+        date.setHours(date.getHours() + 1);
+        //push user, date expire, token into item
+        const item = {
+          user: res.data.user,
+          token: res.data.token,
+          expDate: date,
+        };
+        //set item into localStorage
+        localStorage.setItem("token", JSON.stringify(item));
+        //calling success function Login
+        Alart.alartLoginSuccess();
+        //go to admin page
+        setNavigate(true);
+      }
     } else {
       user.email
         ? Alart.alartLoginEmpty("Password")
@@ -73,7 +73,7 @@ export const Login_Form = () => {
             <div className="bg-secondary rounded p-5 p-sm-5 my-4 mx-1">
               <form>
                 <div className="text-center">
-                  <a href="#">
+                  <a>
                     <h3 className="text-primary">
                       <i className="fa fa-user-edit me-2" />
                       Furniture Store
@@ -124,14 +124,14 @@ export const Login_Form = () => {
                       top: 25,
                       right: 20,
                     }}
-                    onClick={() => {
-                      setPasswordShown(Alart.eye(passwordShown));
-                    }}
+                    onClick={() => setPasswordShown(Alart.eye(passwordShown))}
                   />
                   <label htmlFor="floatingPassword">Password</label>
                 </div>
                 <div className="mb-4 text-center">
-                  <a>Forgot Password</a>
+                  <a href="#" onClick={() => Alart.alartForgotPassword()}>
+                    Forgot Password
+                  </a>
                 </div>
                 <button
                   type="button"

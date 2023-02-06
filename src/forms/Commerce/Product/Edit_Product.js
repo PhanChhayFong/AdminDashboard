@@ -131,7 +131,7 @@ export const Edit_Product = () => {
                           type="text"
                           className="form-control"
                           id="name"
-                          value={product.name}
+                          value={product.name||""}
                           placeholder="name"
                           onChange={(e) => {
                             setProducts({
@@ -148,7 +148,7 @@ export const Edit_Product = () => {
                           type="text"
                           className="form-control"
                           id="sku"
-                          value={product.sku}
+                          value={product.sku||""}
                           placeholder="SKU"
                           onChange={(e) => {
                             setProducts({
@@ -168,7 +168,7 @@ export const Edit_Product = () => {
                           className="form-control"
                           id="regular_price"
                           placeholder="regular_price"
-                          value={product.regularPrice}
+                          value={product.regularPrice||""}
                           onChange={(e) => {
                             setProducts({
                               ...product,
@@ -187,7 +187,7 @@ export const Edit_Product = () => {
                           className="form-control"
                           id="sale_price"
                           placeholder="sale price"
-                          value={product.salePrice}
+                          value={product.salePrice||""}
                           onChange={(e) => {
                             setProducts({
                               ...product,
@@ -209,7 +209,7 @@ export const Edit_Product = () => {
                           className="form-control"
                           id="quantity"
                           placeholder="quantity"
-                          value={product.countInStock}
+                          value={product.countInStock||""}
                           onChange={(e) => {
                             setProducts({
                               ...product,
@@ -227,7 +227,7 @@ export const Edit_Product = () => {
                         <textarea
                           className="form-control description"
                           placeholder="description"
-                          value={product.description}
+                          value={product.description||""}
                           onChange={(e) => {
                             setProducts({
                               ...product,
@@ -249,7 +249,7 @@ export const Edit_Product = () => {
                           type="checkbox"
                           role="switch"
                           id="featured_product"
-                          value={product.isFeatured}
+                          value={product.isFeatured||""}
                           checked={product.isFeatured}
                           onClick={() => {
                             setChecked(!checked);
@@ -283,12 +283,12 @@ export const Edit_Product = () => {
                             setProductCategory(e.target.value);
                             setProductsCate(e.target.value);
                           }}
-                          value={productCate._id}
+                          value={productCate._id||""}
                         >
                           {categories.map((categorys) => (
                             <option
-                              key={`${categorys._id}`}
-                              value={`${categorys._id}`}
+                              key={`${categorys._id}`||""}
+                              value={`${categorys._id}`||""}
                             >
                               {categorys.name}
                             </option>

@@ -12,7 +12,10 @@ const ProtectedRoute = ({ children }) => {
       const item = JSON.parse(token);
       const expItem = new Date(item.expDate);
       const now = new Date();
-      if (now.getTime() > expItem) {
+      if (
+        now.getTime() > expItem
+        // || !item.user.isAdmin
+      ) {
         localStorage.clear("token");
         navigate("/");
       }

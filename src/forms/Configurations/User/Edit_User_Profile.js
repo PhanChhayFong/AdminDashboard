@@ -10,7 +10,7 @@ export const Edit_User_Profile = () => {
   const [changed, setChanged] = useState(false);
   useEffect(() => {
     ApiService.get("users", params.id).then((res) => setUser(res.data));
-  }, []);
+  }, [params.id]);
   //edit new Image
   const hiddenImageUpload = React.useRef(null);
   const handleClick = () => hiddenImageUpload.current.click();
@@ -93,6 +93,22 @@ export const Edit_User_Profile = () => {
                         onChange={handleInputChange}
                       />
                     </div>
+                    <div
+                      className="mb-5"
+                      style={{
+                        width: "auto",
+                        margin: "10px auto",
+                        textAlign: "center",
+                      }}
+                    >
+                      <button
+                        onClick={() => Alart.alartChangePassword(params.id)}
+                        className="form-control"
+                        style={{ cursor: "pointer" }}
+                      >
+                        Change Password
+                      </button>
+                    </div>
                   </div>
 
                   <div className="col-md-9">
@@ -102,7 +118,7 @@ export const Edit_User_Profile = () => {
                         className="form-control"
                         id="name"
                         placeholder="name"
-                        value={user.name}
+                        value={user.name||""}
                         onChange={(e) => {
                           setChanged(true);
                           setUser({
@@ -122,7 +138,7 @@ export const Edit_User_Profile = () => {
                         className="form-control"
                         id="email"
                         placeholder="email"
-                        value={user.email}
+                        value={user.email||""}
                         onChange={(e) => {
                           setChanged(true);
                           setUser({
@@ -142,7 +158,7 @@ export const Edit_User_Profile = () => {
                         className="form-control"
                         id="phone"
                         placeholder="phone"
-                        value={user.phone}
+                        value={user.phone||""}
                         onChange={(e) => {
                           setChanged(true);
                           setUser({
@@ -161,7 +177,7 @@ export const Edit_User_Profile = () => {
                         className="form-control"
                         id="date_of_birt"
                         placeholder="date_of_birth"
-                        value={user.DOB}
+                        value={user.DOB||""}
                         onChange={(e) => {
                           setChanged(true);
                           setUser({
@@ -179,7 +195,7 @@ export const Edit_User_Profile = () => {
                       <textarea
                         className="form-control company-address"
                         placeholder="address"
-                        value={user.address}
+                        value={user.address||""}
                         onChange={(e) => {
                           setChanged(true);
                           setUser({

@@ -85,7 +85,7 @@ export const Edit_Slideshow = () => {
                           type="text"
                           className="form-control"
                           id="title"
-                          value={slider.title}
+                          value={slider.title||""}
                           onChange={(e) => {
                             setSliders({
                               ...slider,
@@ -104,7 +104,7 @@ export const Edit_Slideshow = () => {
                           type="text"
                           className="form-control"
                           id="mini_title"
-                          value={slider.miniTitle}
+                          value={slider.miniTitle||""}
                           onChange={(e) => {
                             setSliders({
                               ...slider,
@@ -123,7 +123,7 @@ export const Edit_Slideshow = () => {
                           type="text"
                           className="form-control"
                           id="link"
-                          value={slider.url}
+                          value={slider.url||""}
                           onChange={(e) => {
                             setSliders({
                               ...slider,
@@ -143,7 +143,7 @@ export const Edit_Slideshow = () => {
                         <textarea
                           className="form-control"
                           style={{ height: "200px" }}
-                          value={slider.description}
+                          value={slider.description||""}
                           onChange={(e) => {
                             setSliders({
                               ...slider,

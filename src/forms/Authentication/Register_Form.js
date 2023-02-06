@@ -3,9 +3,9 @@ import { React, useState } from "react";
 import Alart from "../../service/Alart";
 import axios from "axios";
 
-const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
-const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const REGISTER_URL = "/register";
+// const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
+// const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+// const REGISTER_URL = "/register";
 
 export const Register_Form = () => {
   const [passwordShown, setPasswordShown] = useState(false);
@@ -27,8 +27,8 @@ export const Register_Form = () => {
           headers: { "Content-Type": "application/json" },
         });
         setNavigate(true);
-      } else Alart.alartPasswordError(true)
-    }else Alart.alartPasswordError(false)
+      } else Alart.alartPasswordError(true);
+    } else Alart.alartPasswordError(false);
   };
   return (
     <div className="container-fluid position-relative d-flex p-0">
@@ -41,7 +41,7 @@ export const Register_Form = () => {
           <div className="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
             <div className="bg-secondary rounded p-5 p-sm-5 my-4">
               <div className="text-center">
-                <a href="#">
+                <a>
                   <h3 className="text-primary">
                     <i className="fa fa-user-edit me-2" />
                     Furniture Store
@@ -108,9 +108,7 @@ export const Register_Form = () => {
                       top: 25,
                       right: 20,
                     }}
-                    onClick={()=>{
-                      setPasswordShown(Alart.eye(passwordShown))
-                    }}
+                    onClick={() => setPasswordShown(Alart.eye(passwordShown))}
                   />
                   <label htmlFor="floatingPassword">Password</label>
                 </div>
@@ -135,7 +133,9 @@ export const Register_Form = () => {
                       top: 25,
                       right: 20,
                     }}
-                    onClick={()=>{setRePasswordShown(Alart.eye(repasswordShown))}}
+                    onClick={() =>
+                      setRePasswordShown(Alart.eye(repasswordShown))
+                    }
                   />
                   <label htmlFor="floatingPassword">Confirm Password</label>
                 </div>
@@ -151,15 +151,13 @@ export const Register_Form = () => {
                     </label>
                   </div>
                 </div>
-                <a
+                <button
                   // type="submit"
-                  onClick={() => {
-                    submit();
-                  }}
+                  onClick={() => submit()}
                   className="btn btn-primary py-3 w-100 mb-4"
                 >
                   Sign Up
-                </a>
+                </button>
               </form>
               <p className="text-center m-0">
                 Already have an Account? <Link to="/">Sign In</Link>

@@ -94,7 +94,7 @@ export const Edit_User = () => {
                         type="text"
                         className="form-control"
                         id="name"
-                        value={user.name}
+                        value={user.name||""}
                         placeholder="name"
                         onChange={(e) => {
                           setChanged(true);
@@ -113,7 +113,7 @@ export const Edit_User = () => {
                         className="form-control"
                         id="email"
                         placeholder="email"
-                        value={user.email}
+                        value={user.email||""}
                         onChange={(e) => {
                           setChanged(true);
                           setUser({
@@ -133,7 +133,7 @@ export const Edit_User = () => {
                         className="form-control"
                         id="phone"
                         placeholder="phone"
-                        value={user.phone}
+                        value={user.phone||""}
                         onChange={(e) => {
                           setChanged(true);
                           setUser({
@@ -154,7 +154,7 @@ export const Edit_User = () => {
                           type="checkbox"
                           role="switch"
                           id="featured_product"
-                          value={user.isAdmin}
+                          value={user.isAdmin||""}
                           checked={user.isAdmin}
                           onClick={() => {
                             setChecked(!checked);
@@ -182,7 +182,7 @@ export const Edit_User = () => {
                         className="form-control"
                         id="nationality"
                         placeholder="nationality"
-                        value={user.nationality}
+                        value={user.nationality||""}
                         onChange={(e) => {
                           setChanged(true);
                           setUser({
@@ -203,7 +203,7 @@ export const Edit_User = () => {
                         style={{ colorScheme: "dark" }}
                         id="date_of_birt"
                         placeholder="date_of_birt"
-                        value={user.DOB}
+                        value={user.DOB||""}
                         onChange={(e) => {
                           setChanged(true);
                           setUser({
@@ -221,7 +221,7 @@ export const Edit_User = () => {
                       <textarea
                         className="form-control company-address"
                         placeholder="address"
-                        value={user.address}
+                        value={user.address||""}
                         onChange={(e) => {
                           setChanged(true);
                           setUser({

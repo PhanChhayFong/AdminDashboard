@@ -94,7 +94,7 @@ export const Edit_Category = () => {
                           type="text"
                           className="form-control"
                           id="name"
-                          value={category.name}
+                          value={category.name||""}
                           placeholder="name"
                           onChange={(e) => {
                             setCategory({

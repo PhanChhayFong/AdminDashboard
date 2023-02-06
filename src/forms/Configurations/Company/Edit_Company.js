@@ -87,7 +87,7 @@ export const Edit_Company = () => {
                           type="text"
                           className="form-control"
                           id="name"
-                          value={company.name}
+                          value={company.name||""}
                           onChange={(e) => {
                             setCompany({
                               ...company,
@@ -106,7 +106,7 @@ export const Edit_Company = () => {
                           type="email"
                           className="form-control"
                           id="email"
-                          value={company.email}
+                          value={company.email||""}
                           onChange={(e) => {
                             setCompany({
                               ...company,
@@ -125,7 +125,7 @@ export const Edit_Company = () => {
                           type="text"
                           className="form-control"
                           id="phone"
-                          value={company.telephone}
+                          value={company.telephone||""}
                           onChange={(e) => {
                             setCompany({
                               ...company,
@@ -144,7 +144,7 @@ export const Edit_Company = () => {
                           type="text"
                           className="form-control"
                           id="facebook"
-                          value={company.facebook}
+                          value={company.facebook||""}
                           onChange={(e) => {
                             setCompany({
                               ...company,
@@ -165,7 +165,7 @@ export const Edit_Company = () => {
                           type="text"
                           className="form-control"
                           id="twiiter"
-                          value={company.twitter}
+                          value={company.twitter||""}
                           onChange={(e) => {
                             setCompany({
                               ...company,
@@ -184,7 +184,7 @@ export const Edit_Company = () => {
                           type="text"
                           className="form-control"
                           id="telegram"
-                          value={company.telegram}
+                          value={company.telegram||""}
                           onChange={(e) => {
                             setCompany({
                               ...company,
@@ -201,7 +201,7 @@ export const Edit_Company = () => {
                         </label>
                         <textarea
                           className="form-control company-address"
-                          value={company.address}
+                          value={company.address||""}
                           onChange={(e) => {
                             setCompany({
                               ...company,
