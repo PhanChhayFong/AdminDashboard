@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { SideBar } from "./SideBar/SideBar";
 import { Header } from "./Header/Header";
 import { useNavigate } from "react-router-dom";
+import ApiController from "../service/Controller";
 const ProtectedRoute = ({ children }) => {
   const navigate = useNavigate();
   useEffect(() => {
@@ -14,8 +15,9 @@ const ProtectedRoute = ({ children }) => {
       const now = new Date();
       if (
         now.getTime() > expItem
-        // || !item.user.isAdmin
+        || !item.user.isAdmin
       ) {
+        ApiController.updateActive("users", item.user.id, { active: false });
         localStorage.clear("token");
         navigate("/");
       }

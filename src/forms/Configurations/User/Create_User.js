@@ -53,14 +53,14 @@ export const Create_User = () => {
                     <div className="col-md-6">
                       <Link
                         to="/user"
-                        className="btn btn-success btn-sm bg-success px-3 py-2 fw-bold float-end"
+                        className="btn btn-danger btn-sm bg-danger px-3 py-2 fw-bold float-end"
                       >
                         <i className="fas fa-undo-alt me-2" />
                         Back To User
                       </Link>
                       <Link
                         to="/user"
-                        className="btn btn-primary btn-sm float-end px-4 py-2 me-2 fw-bold"
+                        className="btn btn-success btn-sm float-end px-4 py-2 me-2 fw-bold"
                         onClick={() => submit()}
                       >
                         <i className="fas fa-share-square me-2" />

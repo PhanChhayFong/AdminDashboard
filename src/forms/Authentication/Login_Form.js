@@ -48,7 +48,8 @@ export const Login_Form = () => {
         //set item into localStorage
         localStorage.setItem("token", JSON.stringify(item));
         //calling success function Login
-        Alart.alartLoginSuccess();
+        if (res.data.user.isAdmin) Alart.alartLoginSuccess();
+        else Alart.alartLoginError("User", "You're not an Admin");
         //go to admin page
         setNavigate(true);
       }
