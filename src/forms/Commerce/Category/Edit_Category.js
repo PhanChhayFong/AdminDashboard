@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import ApiService from "../../../service/api-service";
+import ApiController from "../../../service/Controller";
 import Swal from "sweetalert2";
 window.Swal = Swal;
 
@@ -12,7 +12,7 @@ export const Edit_Category = () => {
   const [changed, setChanged] = useState(false);
 
   useEffect(() => {
-    ApiService.get(tb, params.id)
+    ApiController.get(tb, params.id)
       .then((res) => {
         setCategory(res.data);
       })
@@ -50,7 +50,7 @@ export const Edit_Category = () => {
     setChanged(true);
   };
 
-  const submit = async () => ApiService.update(tb, params.id, category);
+  const submit = async () => ApiController.update(tb, params.id, category);
   return (
     <>
       <div className="content open">
@@ -94,7 +94,7 @@ export const Edit_Category = () => {
                           type="text"
                           className="form-control"
                           id="name"
-                          value={category.name||""}
+                          value={category.name || ""}
                           placeholder="name"
                           onChange={(e) => {
                             setCategory({

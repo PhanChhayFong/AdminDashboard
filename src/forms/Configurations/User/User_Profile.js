@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import "./styles/user.css";
-import ApiService from "../../../service/api-service";
+import ApiController from "../../../service/Controller";
 
 export const User_Profile = () => {
   const params = useParams();
   const [user, setUser] = useState([]);
   //getting all data from tbProduct and tbCategory
   useEffect(() => {
-    ApiService.get("users", params.id).then((res) => setUser(res.data));
+    ApiController.get("users", params.id).then((res) => setUser(res.data));
   }, []);
   return (
     <>

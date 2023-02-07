@@ -246,7 +246,7 @@
     padding: 10px;
     border-radius: 2px;
 }
-
+td{vertical-align: middle;}
 .bootstrap-datetimepicker-widget table td.active,
 .bootstrap-datetimepicker-widget table td.active:hover {
     background: var(--primary);

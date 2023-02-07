@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from "react";
 import { Link, Navigate } from "react-router-dom";
-import ApiService from "../../service/api-service";
+import ApiController from "../../service/Controller";
 import Alart from "../../service/Alart";
 import axios from "axios";
 
@@ -33,7 +33,7 @@ export const Login_Form = () => {
         });
       if (res) {
         //update user active to true
-        ApiService.updateActive("users", res.data.user.id, { active: true });
+        ApiController.updateActive("users", res.data.user.id, { active: true });
         res.data.user.active = true;
         //get current date
         const date = new Date();

@@ -69,7 +69,7 @@ function App() {
       <Route path="/product/edit_product/:id" element={<ProtectedRoute><Edit_Product /></ProtectedRoute>}/>
 
       {/* Link for Order Detail */}
-      <Route path="/order/order_detail/:id" element={<ProtectedRoute><Order_Detail/></ProtectedRoute>}/>
+      <Route path="/order/order_detail/:id/:prevpage" element={<ProtectedRoute><Order_Detail/></ProtectedRoute>}/>
       
       {/* Link for User Profile */}
       <Route path="/profile/:id" element={<ProtectedRoute><Profile/></ProtectedRoute>}></Route>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import ApiService from "../../service/api-service";
+import ApiController from "../../service/Controller";
 import Pagination from "../../components/Pagination";
 import Alart from "../../service/Alart";
 export const Slideshow_Index = () => {
@@ -15,11 +15,11 @@ export const Slideshow_Index = () => {
   const tb = "sliders";
   useEffect(() => {
     setReRender(false);
-    ApiService.getAll(tb).then((res) => setSliders(res.data));
+    ApiController.getAll(tb).then((res) => setSliders(res.data));
   }, [reRender]);
   const swapOrder = (Cid, Nid) => {
     Nid != "Up" && Nid != "Down"
-      ? ApiService.updateOrder(tb, Cid, Nid)
+      ? ApiController.updateOrder(tb, Cid, Nid)
       : Alart.alartSwap(Nid);
     setReRender(true);
     // Alart.refresh();
@@ -53,7 +53,7 @@ export const Slideshow_Index = () => {
                 </Link>
               </div>
             </div>
-            <table className="table">
+            <table className="table text-center text-md-start">
               <thead>
                 <tr>
                   <th scope="col">Nº</th>
@@ -67,7 +67,7 @@ export const Slideshow_Index = () => {
               <tbody>
                 {currentItems.map((slider, i) => (
                   <tr key={slider.id}>
-                    <th>{i + 1 + indexOfFirstItem}</th>
+                    <td>{i + 1 + indexOfFirstItem}</td>
                     <td>
                       <img src={slider.image} height="50px" />
                     </td>
@@ -76,9 +76,9 @@ export const Slideshow_Index = () => {
                     <td>{slider.order}</td>
                     <td>
                       <a
-                        className="btn btn-success btn-sm me-2"
+                        className="btn btn-success btn-sm m-2"
                         onClick={() => {
-                          ApiService.updateEnable(tb, `${slider.id}`);
+                          ApiController.updateEnable(tb, `${slider.id}`);
                           setReRender(true);
                         }}
                         title={`${slider.enable}`}
@@ -91,13 +91,13 @@ export const Slideshow_Index = () => {
                       </a>
                       <Link
                         to={`/slideshow/edit_slideshow/${slider.id}`}
-                        className="btn btn-warning btn-sm me-2"
+                        className="btn btn-warning btn-sm m-2"
                         title="Edit"
                       >
                         <i className="fas fa-tools me-2"></i>Edit
                       </Link>
                       <a
-                        className="btn btn-danger btn-sm me-2"
+                        className="btn btn-danger btn-sm m-2"
                         onClick={() => {
                           Alart.alartDelete(tb, `${slider.id}`);
                           setReRender(true);

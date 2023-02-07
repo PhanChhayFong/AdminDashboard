@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import ApiService from "../../../service/api-service";
+import ApiController from "../../../service/Controller";
 import Alart from "../../../service/Alart";
 import "./styles/product.css";
 
@@ -21,7 +21,7 @@ export const Create_Product = () => {
   const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState(true);
   useEffect(() => {
-    ApiService.getAll(tbCategory)
+    ApiController.getAll(tbCategory)
       .then((res) => setCategories(res.data))
       .catch((err) => console.log(err));
   }, []);
@@ -51,7 +51,7 @@ export const Create_Product = () => {
       product.image != "" ||
       product.category != ""
     )
-      ApiService.create(tbProduct, product);
+      ApiController.create(tbProduct, product);
     else Alart.alartCreate("Product", "Name, Description, Image and Category");
   };
   return (

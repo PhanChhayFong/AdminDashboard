@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import ApiService from "../../../service/api-service";
+import ApiController from "../../../service/Controller";
 import "./styles/company.css";
 
 export const Company_Index = () => {
   const [company, setCompany] = useState([]);
   useEffect(() => {
-    ApiService.getAll("companys").then((res) => setCompany(res.data));
+    ApiController.getAll("companys").then((res) => setCompany(res.data));
   }, []);
   return (
     <div className="container-fluid pt-4 px-4">
@@ -14,7 +14,12 @@ export const Company_Index = () => {
         <div className="col-12">
           <div className="bg-secondary rounded h-100 p-4">
             {company.map((c, i) => (
-              <form action="" method="POST" encType="multipart/form-data" key={i}>
+              <form
+                action=""
+                method="POST"
+                encType="multipart/form-data"
+                key={i}
+              >
                 <div className="row mb-4">
                   <div className="col-md-6">
                     <h3 className="fs-5">Company Information</h3>

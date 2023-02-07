@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import ApiService from "../../../service/api-service";
+import ApiController from "../../../service/Controller";
 import Alart from "../../../service/Alart";
 
 export const Create_Category = () => {
@@ -20,7 +20,7 @@ export const Create_Category = () => {
     });
   };
   const submit = async () => {
-    if (category.name != "") ApiService.create(tb, category);
+    if (category.name != "") ApiController.create(tb, category);
     else Alart.alartCreate("Category", "Name");
   };
   return (

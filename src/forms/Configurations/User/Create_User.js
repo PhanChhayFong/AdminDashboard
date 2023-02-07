@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./styles/user.css";
-import ApiService from "../../../service/api-service";
+import ApiController from "../../../service/Controller";
 import Alart from "../../../service/Alart";
 export const Create_User = () => {
   const tb = "users";
@@ -34,7 +34,8 @@ export const Create_User = () => {
       user.email != "" ||
       user.password != "" ||
       user.image != ""
-    ) ApiService.create(tb, user);
+    )
+      ApiController.create(tb, user);
     else Alart.alartCreate("User", "Name , Email, Password and Image");
   };
   return (

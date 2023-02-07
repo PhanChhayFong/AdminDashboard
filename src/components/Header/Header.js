@@ -1,6 +1,6 @@
 import { React, useState } from "react";
 import "./Header.css";
-import ApiService from "../../service/api-service";
+import ApiController from "../../service/Controller";
 import profile from "../../assets/img/user.jpg";
 import profile1 from "../../assets/img/testimonial-1.jpg";
 import profile2 from "../../assets/img/testimonial-2.jpg";
@@ -10,7 +10,8 @@ export const Header = ({ click }) => {
   const token = localStorage.getItem("token");
   const item = token ? JSON.parse(token) : "";
   const Logout = () => {
-    if (token) ApiService.updateActive("users", item.user.id, { active: false });
+    if (token)
+      ApiController.updateActive("users", item.user.id, { active: false });
     localStorage.clear("token");
     setNavigate(true);
   };
@@ -131,10 +132,16 @@ export const Header = ({ click }) => {
             </span>
           </a>
           <div className="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-            <Link to={`/profile/${token ? item.user.id : ""}`} className="dropdown-item">
+            <Link
+              to={`/profile/${token ? item.user.id : ""}`}
+              className="dropdown-item"
+            >
               My Profile
             </Link>
-            <Link to={`/profile/edit_profile/${token ? item.user.id : ""}`} className="dropdown-item">
+            <Link
+              to={`/profile/edit_profile/${token ? item.user.id : ""}`}
+              className="dropdown-item"
+            >
               Settings
             </Link>
             <a
