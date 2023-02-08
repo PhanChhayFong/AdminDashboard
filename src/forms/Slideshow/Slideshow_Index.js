@@ -18,11 +18,11 @@ export const Slideshow_Index = () => {
     ApiController.getAll(tb).then((res) => setSliders(res.data));
   }, [reRender]);
   const swapOrder = (Cid, Nid) => {
-    Nid != "Up" && Nid != "Down"
-      ? ApiController.updateOrder(tb, Cid, Nid)
-      : Alart.alartSwap(Nid);
-    setReRender(true);
-    // Alart.refresh();
+    if (Nid != "Up" && Nid != "Down") {
+      ApiController.updateOrder(tb, Cid, Nid);
+      setReRender(true);
+      Alart.refresh();
+    } else Alart.alartSwap(Nid);
   };
   const changeSliderPP = (e) => setitemsPerPage(e);
   return (
