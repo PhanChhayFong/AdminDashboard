@@ -151,13 +151,13 @@ export const Register_Form = () => {
                     </label>
                   </div>
                 </div>
-                <button
+                <a
                   // type="submit"
                   onClick={() => submit()}
                   className="btn btn-primary py-3 w-100 mb-4"
                 >
                   Sign Up
-                </button>
+                </a>
               </form>
               <p className="text-center m-0">
                 Already have an Account? <Link to="/">Sign In</Link>
