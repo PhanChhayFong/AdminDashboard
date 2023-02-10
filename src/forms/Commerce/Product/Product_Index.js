@@ -13,13 +13,12 @@ export const Product_Index = () => {
   const [filter, setFilter] = useState("All");
   const [reverse, setReverse] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setitemsPerPage] = useState(5);
+  const [itemsPerPage, setitemsPerPage] = useState(20);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   const changeProductPP = (e) => setitemsPerPage(e);
-  const [passwordShown, setPasswordShown] = useState(false);
   useEffect(() => {
     setReRender(false);
     ApiController.getAll(`${tb}/get/${sort}/${filter}/${reverse}`).then((res) =>
@@ -78,42 +77,21 @@ export const Product_Index = () => {
                   <option value={"countInStock"}>Quantity</option>
                   <option value={"salePrice"}>Sale Price</option>
                 </select>
-                {sort == "category" ? (
-                  ""
-                ) : (
-                  <a
-                    className="ms-4"
-                    style={{
-                      cursor: "pointer",
-                      position: "relative",
-                      color: "white",
-                    }}
-                    onClick={() => {
-                      setReverse(reverse * -1);
-                      setReRender(true);
-                    }}
-                  >
-                    <i className={`fa fa-arrow-down`} />
-                    <label
-                      style={{
-                        cursor: "pointer",
-                        position: "absolute",
-                        top: "-10px",
-                      }}
-                    >
-                      {reverse == 1 ? "A" : "Z"}
-                    </label>
-                    <label
-                      style={{
-                        cursor: "pointer",
-                        position: "absolute",
-                        top: "10px",
-                      }}
-                    >
-                      {reverse == -1 ? "A" : "Z"}
-                    </label>
-                  </a>
-                )}
+                <i
+                  style={{
+                    marginLeft: "20px",
+                    cursor: "pointer",
+                    position: "relative",
+                    color: "white",
+                  }}
+                  onClick={() => {
+                    setReverse(-reverse);
+                    setReRender(true);
+                  }}
+                  className={`fas fa-sort-amount-${
+                    reverse != 1 ? "up" : "down"
+                  }-alt`}
+                ></i>
               </div>
               <div className="col-md-6 col-12 text-md-end">
                 <label className="h5">Filter Products By Category</label>
@@ -131,7 +109,7 @@ export const Product_Index = () => {
                 </select>
               </div>
             </div>
-            <table className="table text-center text-md-start">
+            <table className="table text-center text-md-start mt-3">
               <thead>
                 <tr>
                   <th>Nº</th>
