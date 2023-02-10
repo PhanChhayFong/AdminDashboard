@@ -7,8 +7,11 @@ import Alart from "../../../service/Alart";
 export const Product_Index = () => {
   const tb = "products";
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [reRender, setReRender] = useState(false);
-  const [status, setStatus] = useState("dateCreated");
+  const [sort, setSort] = useState("dateCreated");
+  const [filter, setFilter] = useState("All");
+  const [reverse, setReverse] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setitemsPerPage] = useState(5);
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -16,46 +19,42 @@ export const Product_Index = () => {
   const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   const changeProductPP = (e) => setitemsPerPage(e);
+  const [passwordShown, setPasswordShown] = useState(false);
   useEffect(() => {
     setReRender(false);
-    ApiController.getAll(`${tb}/get/${status}`).then((res) =>
+    ApiController.getAll(`${tb}/get/${sort}/${filter}/${reverse}`).then((res) =>
       setProducts(res.data)
     );
   }, [reRender]);
+  useEffect(() => {
+    ApiController.getAll(`${"categories"}`).then((res) =>
+      setCategories(res.data)
+    );
+  }, []);
   const stockStatus = (countInStock) => {
     if (countInStock == 0) return "Out Of Stock";
     else if (countInStock < 20) return "Low In Stock";
     else return "In Stock";
   };
-  const changeStatus = (e) => {
-    setStatus(e.target.value);
+  const changeSort = (e) => {
+    setSort(e.target.value);
+    setReRender(true);
+  };
+  const changeFilter = (e) => {
+    setFilter(e.target.value);
+    setCurrentPage(1);
     setReRender(true);
   };
   return (
     <div className="container-fluid pt-4 px-4">
       <div className="row g-4">
         <div className="col-sm-12">
-          <div className="bg-secondary rounded h-100 p-4">
-            <div className="row text-start text-md-start">
-              <div className="col-md-4 col-12">
+          <div className="bg-secondary rounded h-100 p-md-4 p-2">
+            <div className="row text-start text-md-start text-center">
+              <div className="col-md-6 col-12">
                 <h3 className="fs-5">Product</h3>
               </div>
-              <div className="col-md-4 col-12 text-md-center">
-                <label className="h5">Sort Product By</label>
-                <select
-                  onChange={changeStatus}
-                  value={status}
-                  className="bg-secondary text-light ms-2"
-                >
-                  <option value={"dateCreated"}>Date Created</option>
-                  <option value={"name"}>Product Name</option>
-                  <option value={"sku"}>Product Code</option>
-                  <option value={"category"}>Category</option>
-                  <option value={"countInStock"}>Quantity</option>
-                  <option value={"salePrice"}>Sale Price</option>
-                </select>
-              </div>
-              <div className="col-md-4 col-12">
+              <div className="col-md-6 col-12">
                 <Link
                   to="/product/create_product"
                   className="btn btn-success btn-sm bg-success px-3 py-2 fw-bold float-md-end"
@@ -65,7 +64,73 @@ export const Product_Index = () => {
                 </Link>
               </div>
             </div>
-
+            <div className="row text-start text-md-start text-center mt-3">
+              <div className="col-md-6 col-12 mb-md-0 mb-3">
+                <label className="h5">Sort Product By</label>
+                <select
+                  onChange={changeSort}
+                  value={sort}
+                  className="bg-secondary text-light ms-2"
+                >
+                  <option value={"dateCreated"}>Date Created</option>
+                  <option value={"name"}>Product Name</option>
+                  <option value={"sku"}>Product Code</option>
+                  <option value={"countInStock"}>Quantity</option>
+                  <option value={"salePrice"}>Sale Price</option>
+                </select>
+                {sort == "category" ? (
+                  ""
+                ) : (
+                  <a
+                    className="ms-4"
+                    style={{
+                      cursor: "pointer",
+                      position: "relative",
+                      color: "white",
+                    }}
+                    onClick={() => {
+                      setReverse(reverse * -1);
+                      setReRender(true);
+                    }}
+                  >
+                    <i className={`fa fa-arrow-down`} />
+                    <label
+                      style={{
+                        cursor: "pointer",
+                        position: "absolute",
+                        top: "-10px",
+                      }}
+                    >
+                      {reverse == 1 ? "A" : "Z"}
+                    </label>
+                    <label
+                      style={{
+                        cursor: "pointer",
+                        position: "absolute",
+                        top: "10px",
+                      }}
+                    >
+                      {reverse == -1 ? "A" : "Z"}
+                    </label>
+                  </a>
+                )}
+              </div>
+              <div className="col-md-6 col-12 text-md-end">
+                <label className="h5">Filter Products By Category</label>
+                <select
+                  onChange={changeFilter}
+                  value={filter}
+                  className="bg-secondary text-light ms-2"
+                >
+                  <option value={`All`}>All</option>
+                  {categories.map((category) => (
+                    <option value={`${category._id}`} key={category._id}>
+                      {category.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
             <table className="table text-center text-md-start">
               <thead>
                 <tr>
@@ -74,7 +139,11 @@ export const Product_Index = () => {
                   <th className="d-none d-md-table-cell">Product Code</th>
                   <th className="d-none d-md-table-cell">Stock Status</th>
                   <th>Name</th>
-                  <th className="d-none d-md-table-cell">Category</th>
+                  {filter == "All" ? (
+                    <th className="d-none d-md-table-cell">Category</th>
+                  ) : (
+                    ""
+                  )}
                   <th>Quantity</th>
                   <th className="d-none d-md-table-cell">Regular Price</th>
                   <th>Sale Price</th>
@@ -85,17 +154,21 @@ export const Product_Index = () => {
                 {currentItems.map((product, i) => (
                   <tr key={product.id}>
                     <td>{i + 1 + indexOfFirstItem}</td>
-                    <td>
-                      <img src={product.image} width="50" height="50" />
+                    <td style={{ textAlign: "center" }}>
+                      <img src={product.image} height="50" />
                     </td>
                     <td className="d-none d-md-table-cell">{product.sku}</td>
                     <td className="d-none d-md-table-cell">
                       {stockStatus(`${product.countInStock}`)}
                     </td>
                     <td>{product.name}</td>
-                    <td className="d-none d-md-table-cell">
-                      {product.category == null ? "" : product.category.name}
-                    </td>
+                    {filter == "All" ? (
+                      <td className="d-none d-md-table-cell">
+                        {product.category == null ? "" : product.category.name}
+                      </td>
+                    ) : (
+                      ""
+                    )}
                     <td>{product.countInStock}</td>
                     <td className="d-none d-md-table-cell">
                       $ {product.regularPrice}

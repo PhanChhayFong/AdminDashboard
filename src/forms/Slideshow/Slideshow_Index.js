@@ -31,19 +31,10 @@ export const Slideshow_Index = () => {
         <div className="col-sm-12">
           <div className="bg-secondary rounded h-100 p-4">
             <div className="row">
-              <div className="col-md-4 col-6">
+              <div className="col-6">
                 <h3 className="fs-5">Slideshow</h3>
               </div>
-              <div className="col-md-4 col-6">
-                <form>
-                  <input
-                    className="form-control bg-dark border-0"
-                    type="search"
-                    placeholder="Search"
-                  />
-                </form>
-              </div>
-              <div className="col-md-4 col-12">
+              <div className="col-6">
                 <Link
                   to="/slideshow/create_slideshow"
                   className="btn btn-success btn-sm bg-success px-3 py-2 fw-bold float-md-end"
@@ -56,12 +47,12 @@ export const Slideshow_Index = () => {
             <table className="table text-center text-md-start">
               <thead>
                 <tr>
-                  <th scope="col">Nº</th>
-                  <th scope="col">Image</th>
-                  <th scope="col">Title</th>
-                  <th scope="col">Event</th>
-                  <th scope="col">Order</th>
-                  <th scope="col">Actions</th>
+                  <th>Nº</th>
+                  <th>Image</th>
+                  <th>Title</th>
+                  <th>Event</th>
+                  <th>Order</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
