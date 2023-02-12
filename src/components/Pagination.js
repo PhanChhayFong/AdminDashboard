@@ -3,9 +3,8 @@ import React from "react";
 const Pagination = ({ itemsPerPage, currentPage, totalItems, paginate }) => {
   const pageNumbers = [];
   //   console.log(itemsPerPage,totalItems,paginate)
-  for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++)
     pageNumbers.push(i);
-  }
   const mouse = {cursor: "pointer"};
   //   console.log(pageNumbers);
   return (
