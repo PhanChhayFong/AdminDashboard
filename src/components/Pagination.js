@@ -1,12 +1,10 @@
 import React from "react";
 
 const Pagination = ({ itemsPerPage, currentPage, totalItems, paginate }) => {
+  const mouse = {cursor: "pointer"};
   const pageNumbers = [];
-  //   console.log(itemsPerPage,totalItems,paginate)
   for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++)
     pageNumbers.push(i);
-  const mouse = {cursor: "pointer"};
-  //   console.log(pageNumbers);
   return (
     <nav className="bg-secondary text-light m-auto w-50 text-center">
       <ul className="pagination justify-content-center">
