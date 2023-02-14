@@ -53,11 +53,11 @@ export const Login_Form = () => {
         //go to admin page
         setNavigate(true);
       }
-    } else {
+    } else 
       user.email
         ? Alart.alartLoginEmpty("Password")
         : Alart.alartLoginEmpty("Email");
-    }
+    
   };
   if (navigate) {
     return <Navigate to="/admin" />;
