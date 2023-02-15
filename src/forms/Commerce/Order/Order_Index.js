@@ -25,6 +25,7 @@ export const Order_Index = () => {
   const changeOrderPP = (e) => setitemsPerPage(e);
   const changeStatus = (e) => {
     setStatus(e.target.value);
+    setCurrentPage(1);
     setReRender(true);
   };
   const OrderDate = (date) => {
