@@ -13,7 +13,7 @@ export const Product_Index = () => {
   const [filter, setFilter] = useState("All");
   const [reverse, setReverse] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setitemsPerPage] = useState(20);
+  const [itemsPerPage, setitemsPerPage] = useState(10);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
