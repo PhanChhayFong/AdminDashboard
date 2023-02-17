@@ -5,9 +5,9 @@ import profile from "../../assets/img/user.jpg";
 import profile1 from "../../assets/img/testimonial-1.jpg";
 import profile2 from "../../assets/img/testimonial-2.jpg";
 import { Link, Navigate } from "react-router-dom";
-export const Header = ({ click ,clickDarkmode,darkmodeStatus}) => {
+export const Header = ({ click, clickDarkmode, darkmodeStatus }) => {
   const [navigate, setNavigate] = useState(false);
-  
+
   const token = localStorage.getItem("token");
   const item = token ? JSON.parse(token) : "";
 
@@ -20,7 +20,7 @@ export const Header = ({ click ,clickDarkmode,darkmodeStatus}) => {
 
   if (navigate) return <Navigate to="/" />;
   return (
-    <nav className="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
+    <nav className={`navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0`}>
       <a href="index.html" className="navbar-brand d-flex d-lg-none me-4">
         <h2 className="text-primary mb-0">
           <i className="fa fa-user-edit" />
@@ -29,8 +29,16 @@ export const Header = ({ click ,clickDarkmode,darkmodeStatus}) => {
       <a onClick={click} className="sidebar-toggler flex-shrink-0 mouse">
         <i className="fa fa-bars" />
       </a>
-      <a onClick={clickDarkmode} title="Dark Mode" className="sidebar-toggler flex-shrink-0 ms-2 mouse">
-        {darkmodeStatus?<i className="fa fa-sun" />:<i className="fa fa-moon" />}
+      <a
+        onClick={clickDarkmode}
+        title="Dark Mode"
+        className="sidebar-toggler flex-shrink-0 ms-2 mouse"
+      >
+        {darkmodeStatus ? (
+          <i className="fa fa-sun" />
+        ) : (
+          <i className="fa fa-moon" />
+        )}
       </a>
       <div className="navbar-nav align-items-center ms-auto">
         <div className="nav-item dropdown">

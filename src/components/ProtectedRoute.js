@@ -10,7 +10,7 @@ const ProtectedRoute = ({ children }) => {
   const handleClick = () => setOpen(!open);
 
   const [darkmode, setDarkmode] = useState(false);
-  const handleDarkmode = () => setDarkmode(!darkmode);
+  const handleDarkmode = () => {setDarkmode(!darkmode);document.querySelector("body").setAttribute("dark-theme",!darkmode?"light":"dark")}
 
   useEffect(() => {
     const token = localStorage.getItem("token");

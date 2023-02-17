@@ -80,9 +80,18 @@ export const Order_Index = () => {
                 {currentItems.map((order, i) => (
                   <tr key={order.id}>
                     <td>{i + 1 + indexOfFirstItem}</td>
-                    <td className="d-none d-md-table-cell">$ {order.totalPrice}</td>
-                    <td className="d-none d-md-table-cell">$ {parseFloat(order.totalPrice * 0.1).toFixed(2)}</td>
-                    <td>$ {parseFloat(order.totalPrice + order.totalPrice * 0.1).toFixed(2)}</td>
+                    <td className="d-none d-md-table-cell">
+                      $ {order.totalPrice}
+                    </td>
+                    <td className="d-none d-md-table-cell">
+                      $ {parseFloat(order.totalPrice * 0.1).toFixed(2)}
+                    </td>
+                    <td>
+                      $
+                      {parseFloat(
+                        order.totalPrice + order.totalPrice * 0.1
+                      ).toFixed(2)}
+                    </td>
                     <td>{order.user ? order.user.name : ""}</td>
                     <td>{order.user ? order.user.phone : ""}</td>
                     <td className="d-none d-md-table-cell">
@@ -122,7 +131,7 @@ export const Order_Index = () => {
                         ""
                       ) : (
                         <a
-                          className="btn btn-danger btn-sm m-2"
+                          className="btn btn-primary btn-sm m-2"
                           title="Cancel Order"
                           onClick={() => {
                             Alart.alartDelete(tb, `${order.id}`);

@@ -4,11 +4,17 @@ import ApiController from "../../service/Controller";
 export const Sale_Revenue = () => {
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
-  const subTotalSales = orders.reduce((previous, current) => previous + new Number(current.totalPrice), 0);
+  const subTotalSales = orders.reduce(
+    (previous, current) => previous + new Number(current.totalPrice),
+    0
+  );
   useEffect(() => {
-    const date = new Date();
-    ApiController.getAll(`products/getcount/count`).then((res) =>             setProducts(res.data));
-    ApiController.getAll(`orders/getSale/${date.getMonth()+1}`).then((res) => setOrders(res.data));
+    ApiController.getAll(`products/getcount/count`).then((res) =>
+      setProducts(res.data)
+    );
+    ApiController.getAll(`orders/getSale/month`).then((res) =>
+      setOrders(res.data)
+    );
   }, []);
   return (
     //fa-chart-bar || fa-chart-line
@@ -37,7 +43,9 @@ export const Sale_Revenue = () => {
             <i className="fa fa-chart-pie fa-3x text-primary" />
             <div className="ms-3">
               <p className="mb-2">Sell & Tax</p>
-              <h6 className="mb-0">$ {parseFloat(subTotalSales*0.1).toFixed(2)}</h6>
+              <h6 className="mb-0">
+                $ {parseFloat(subTotalSales * 0.1).toFixed(2)}
+              </h6>
             </div>
           </div>
         </div>
@@ -46,7 +54,9 @@ export const Sale_Revenue = () => {
             <i className="fa fa-chart-area fa-3x text-primary" />
             <div className="ms-3">
               <p className="mb-2">Total Sale</p>
-              <h6 className="mb-0">$ {parseFloat(subTotalSales+(subTotalSales*0.1)).toFixed(2)}</h6>
+              <h6 className="mb-0">
+                $ {parseFloat(subTotalSales + subTotalSales * 0.1).toFixed(2)}
+              </h6>
             </div>
           </div>
         </div>
