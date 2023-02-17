@@ -66,7 +66,7 @@ export const Category_Index = () => {
                     <td>
                       <Link
                         to={`/category/edit_category/${category._id}`}
-                        className="btn btn-warning btn-sm me-2"
+                        className="btn btn-warning btn-sm me-2 text-light"
                         title="Edit Category"
                       >
                         <i className="fas fa-tools me-2"></i>Edit

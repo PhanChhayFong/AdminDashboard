@@ -92,7 +92,7 @@ export const User_Index = () => {
                     <td>
                       <Link
                         to={`/user/edit_user/${user.id}`}
-                        className="btn btn-warning btn-sm m-2"
+                        className="btn btn-warning btn-sm m-2 text-light text-light"
                         title="Edit User"
                       >
                         <i className="fas fa-tools me-2"></i>Edit

@@ -68,7 +68,7 @@ export const Edit_Company = () => {
                         <Link
                           to="/company"
                           onClick={() => submit()}
-                          className="btn btn-warning bg-warning btn-sm float-end px-4 py-2 me-2 fw-bold"
+                          className="btn btn-warning bg-warning btn-sm float-end px-4 py-2 me-2 fw-bold text-light"
                         >
                           <i className="fas fa-tools me-2" />
                           Update

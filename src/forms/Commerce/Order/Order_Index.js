@@ -119,7 +119,7 @@ export const Order_Index = () => {
                             ApiController.updateStatus(tb, `${order.id}`);
                             setReRender(true);
                           }}
-                          className="btn btn-warning btn-sm m-2"
+                          className="btn btn-warning btn-sm m-2 text-light"
                           title="Delivery Order"
                         >
                           <i className="fas fa-truck"></i>

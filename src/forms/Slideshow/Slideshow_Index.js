@@ -82,7 +82,7 @@ export const Slideshow_Index = () => {
                       </a>
                       <Link
                         to={`/slideshow/edit_slideshow/${slider.id}`}
-                        className="btn btn-warning btn-sm m-2"
+                        className="btn btn-warning btn-sm m-2 text-light"
                         title="Edit"
                       >
                         <i className="fas fa-tools me-2"></i>Edit

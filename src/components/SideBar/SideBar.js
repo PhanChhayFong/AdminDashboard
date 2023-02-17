@@ -1,6 +1,5 @@
 import { React, useState } from "react";
 import { NavLink, Link, Navigate } from "react-router-dom";
-import "./Sidebar.css";
 import ApiController from "../../service/Controller";
 
 export const SideBar = (open) => {

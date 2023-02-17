@@ -154,7 +154,7 @@ export const Product_Index = () => {
                       <div className="d-flex">
                         <Link
                           to={`/product/edit_product/${product.id}`}
-                          className="btn btn-warning btn-sm me-2"
+                          className="btn btn-warning btn-sm me-2 text-light"
                           title="Edit Product"
                         >
                           <i className="fas fa-tools"></i>
