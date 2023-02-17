@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from "react";
 import ApiController from "../../service/Controller";
-import profile from "../../assets/img/user.jpg";
-import profile1 from "../../assets/img/testimonial-1.jpg";
-import profile2 from "../../assets/img/testimonial-2.jpg";
 import Calendars from "../Calender/Calenders";
 import "../Calender/calenders.css";
 import {
   CCarousel,
   CCarouselItem,
-  CCarouselCaption,
-  CImage,
 } from "@coreui/react";
 export const Widgets = () => {
   const [users, setUsers] = useState([]);

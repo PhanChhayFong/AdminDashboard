@@ -81,13 +81,12 @@ export const Product_Index = () => {
                   style={{
                     marginLeft: "20px",
                     position: "relative",
-                    color: "white",
                   }}
                   onClick={() => {
                     setReverse(-reverse);
                     setReRender(true);
                   }}
-                  className={`fas fa-sort-amount-${
+                  className={`text-light fas fa-sort-amount-${
                     reverse != 1 ? "up" : "down"
                   }-alt mouse`}
                 ></i>

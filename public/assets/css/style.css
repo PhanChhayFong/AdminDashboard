@@ -295,3 +295,10 @@ td{vertical-align: middle;}
 }
 
 .mouse{cursor: pointer}
+span.carousel-control-prev-icon,
+span.carousel-control-next-icon {
+    background-color: black;
+    border-radius: 50%;
+    background-size: 80% !important;
+    background-position: center;
+}
