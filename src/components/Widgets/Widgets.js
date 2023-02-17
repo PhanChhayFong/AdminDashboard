@@ -10,7 +10,7 @@ export const Widgets = () => {
   const [users, setUsers] = useState([]);
   const [companys, setCompanys] = useState([]);
   useEffect(() => {
-    ApiController.getAll(`users`).then((res) => setUsers(res.data));
+    ApiController.getAll(`users/get/user-admin`).then((res) => setUsers(res.data));
     ApiController.getAll(`companys`).then((res) => setCompanys(res.data));
   }, []);
   return (
@@ -46,7 +46,7 @@ export const Widgets = () => {
         <div className="col-sm-12 col-md-6 col-xl-4">
           <div className="h-100 bg-secondary rounded p-4">
             <div className="d-flex align-items-center justify-content-between mb-4">
-              <h6 className="mb-0">User</h6>
+              <h6 className="mb-0">Team</h6>
             </div>
             <CCarousel controls indicators>
               {users.map((user) => (
