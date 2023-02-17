@@ -2,15 +2,13 @@ import React, { useEffect, useState } from "react";
 import { SideBar } from "./SideBar/SideBar";
 import { Header } from "./Header/Header";
 import { useNavigate } from "react-router-dom";
+import { Footer } from "./Footer/Footer";
 import ApiController from "../service/Controller";
 import Alart from "../service/Alart";
 const ProtectedRoute = ({ children }) => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const handleClick = () => setOpen(!open);
-
-  const [darkmode, setDarkmode] = useState(false);
-  const handleDarkmode = () => {setDarkmode(!darkmode);document.querySelector("body").setAttribute("dark-theme",!darkmode?"light":"dark")}
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -32,12 +30,9 @@ const ProtectedRoute = ({ children }) => {
     <>
       <SideBar open={open} />
       <div className={`content ${open ? "open" : ""}`}>
-        <Header
-          click={() => handleClick()}
-          clickDarkmode={() => handleDarkmode()}
-          darkmodeStatus = {darkmode}
-        />
+        <Header click={() => handleClick()} />
         {children}
+        <Footer />
       </div>
     </>
   );

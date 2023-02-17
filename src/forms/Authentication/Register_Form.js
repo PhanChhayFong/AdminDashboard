@@ -137,18 +137,6 @@ export const Register_Form = () => {
                   />
                   <label htmlFor="floatingPassword">Confirm Password</label>
                 </div>
-                <div className="d-flex align-items-center justify-content-between mb-4">
-                  <div className="form-check">
-                    <input
-                      type="checkbox"
-                      className="form-check-input"
-                      id="exampleCheck1"
-                    />
-                    <label className="form-check-label" htmlFor="exampleCheck1">
-                      Check me out
-                    </label>
-                  </div>
-                </div>
                 <a
                   // type="submit"
                   onClick={() => submit()}

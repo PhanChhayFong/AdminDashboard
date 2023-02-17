@@ -5,7 +5,7 @@ import profile from "../../assets/img/user.jpg";
 import profile1 from "../../assets/img/testimonial-1.jpg";
 import profile2 from "../../assets/img/testimonial-2.jpg";
 import { Link, Navigate } from "react-router-dom";
-export const Header = ({ click, clickDarkmode, darkmodeStatus }) => {
+export const Header = ({ click }) => {
   const [navigate, setNavigate] = useState(false);
 
   const token = localStorage.getItem("token");
@@ -18,6 +18,11 @@ export const Header = ({ click, clickDarkmode, darkmodeStatus }) => {
     setNavigate(true);
   };
 
+  const [darkmode, setDarkmode] = useState(false);
+  const handleDarkmode = () => {
+    setDarkmode(!darkmode);
+    document.querySelector("body").setAttribute("dark-theme",darkmode?"":"L")
+  }
   if (navigate) return <Navigate to="/" />;
   return (
     <nav className={`navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0`}>
@@ -30,11 +35,11 @@ export const Header = ({ click, clickDarkmode, darkmodeStatus }) => {
         <i className="fa fa-bars" />
       </a>
       <a
-        onClick={clickDarkmode}
+        onClick={handleDarkmode}
         title="Dark Mode"
         className="sidebar-toggler flex-shrink-0 ms-2 mouse"
       >
-        {darkmodeStatus ? (
+        {darkmode ? (
           <i className="fa fa-sun" />
         ) : (
           <i className="fa fa-moon" />
