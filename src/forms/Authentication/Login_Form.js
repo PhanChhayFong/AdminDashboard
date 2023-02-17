@@ -16,14 +16,38 @@ export const Login_Form = () => {
     if (token) setNavigate(true);
   }, []);
   const submit = async () => {
-    if (user.email != "" && user.password != "") {
-      const res = await axios
+    if (user.email != "" && user.password != "")
+      await axios
         .post(
           `http://localhost:5000/api/v1/users/login`,
           user,
           { headers: { "Content-Type": "application/json" } },
           { withCredentials: true }
         )
+        .then((res) => {
+          //update user active to true
+          ApiController.updateActive("users", res.data.user.id, {
+            active: true,
+          });
+          res.data.user.active = true;
+          //get current date
+          const date = new Date();
+          //set expire date
+          date.setHours(date.getHours() + 1);
+          //push user, date expire, token into item
+          const item = {
+            user: res.data.user,
+            token: res.data.token,
+            expDate: date,
+          };
+          //set item into localStorage
+          localStorage.setItem("token", JSON.stringify(item));
+          //calling success function Login
+          if (res.data.user.isAdmin) Alart.alartLoginSuccess();
+          else Alart.alartLoginError("User", "You're not an Admin");
+          //go to admin page
+          setNavigate(true);
+        })
         .catch((err) => {
           if (err.response)
             return Alart.alartLoginError(
@@ -31,36 +55,13 @@ export const Login_Form = () => {
               err.response.data
             );
         });
-      if (res) {
-        //update user active to true
-        ApiController.updateActive("users", res.data.user.id, { active: true });
-        res.data.user.active = true;
-        //get current date
-        const date = new Date();
-        //set expire date
-        date.setHours(date.getHours() + 1);
-        //push user, date expire, token into item
-        const item = {
-          user: res.data.user,
-          token: res.data.token,
-          expDate: date,
-        };
-        //set item into localStorage
-        localStorage.setItem("token", JSON.stringify(item));
-        //calling success function Login
-        if (res.data.user.isAdmin) Alart.alartLoginSuccess();
-        else Alart.alartLoginError("User", "You're not an Admin");
-        //go to admin page
-        setNavigate(true);
-      }
-    } else
+    else
       user.email
         ? Alart.alartLoginEmpty("Password")
         : Alart.alartLoginEmpty("Email");
   };
-  if (navigate) {
-    return <Navigate to="/admin" />;
-  }
+  if (navigate) return <Navigate to="/admin" />;
+
   return (
     <div className="container-fluid position-relative d-flex p-0">
       {/* Sign In Start */}

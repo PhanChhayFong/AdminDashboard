@@ -8,9 +8,8 @@ export const SideBar = (open) => {
   const token = localStorage.getItem("token");
   const item = token ? JSON.parse(token) : "";
   const Logout = () => {
-    if (token)
-      ApiController.updateActive("users", item.user.id, { active: false });
-    localStorage.clear("token");
+    ApiController.updateActive("users", item.user.id, { active: false });
+    localStorage.removeItem("token");
     setNavigate(true);
   };
   if (navigate) return <Navigate to="/" />;

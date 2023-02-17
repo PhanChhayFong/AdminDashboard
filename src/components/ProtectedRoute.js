@@ -12,9 +12,8 @@ const ProtectedRoute = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (!token) {
-      navigate("/");
-    } else {
+    if (!token) navigate("/");
+    else {
       const item = JSON.parse(token);
       const expItem = new Date(item.expDate);
       const now = new Date();

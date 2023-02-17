@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import "./Header.css";
 import ApiController from "../../service/Controller";
 import profile from "../../assets/img/user.jpg";
@@ -7,25 +7,31 @@ import profile2 from "../../assets/img/testimonial-2.jpg";
 import { Link, Navigate } from "react-router-dom";
 export const Header = ({ click }) => {
   const [navigate, setNavigate] = useState(false);
+  const [darkmode, setDarkmode] = useState(false);
 
   const token = localStorage.getItem("token");
   const item = token ? JSON.parse(token) : "";
 
   const Logout = () => {
-    if (token)
-      ApiController.updateActive("users", item.user.id, { active: false });
-    localStorage.clear("token");
+    ApiController.updateActive("users", item.user.id, { active: false });
+    localStorage.removeItem("token");
     setNavigate(true);
   };
-
-  const [darkmode, setDarkmode] = useState(false);
+  useEffect(() => {
+    if (localStorage.getItem("DarkMode") == "false") setDarkmode(!darkmode);
+  }, []);
   const handleDarkmode = () => {
     setDarkmode(!darkmode);
-    document.querySelector("body").setAttribute("dark-theme",darkmode?"":"L")
-  }
+    document
+      .querySelector("body")
+      .setAttribute("dark-theme", darkmode ? "D" : "L");
+    localStorage.setItem("DarkMode", darkmode);
+  };
   if (navigate) return <Navigate to="/" />;
   return (
-    <nav className={`navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0`}>
+    <nav
+      className={`navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0`}
+    >
       <a href="index.html" className="navbar-brand d-flex d-lg-none me-4">
         <h2 className="text-primary mb-0">
           <i className="fa fa-user-edit" />
@@ -39,11 +45,7 @@ export const Header = ({ click }) => {
         title="Dark Mode"
         className="sidebar-toggler flex-shrink-0 ms-2 mouse"
       >
-        {darkmode ? (
-          <i className="fa fa-sun" />
-        ) : (
-          <i className="fa fa-moon" />
-        )}
+        {darkmode ? <i className="fa fa-sun" /> : <i className="fa fa-moon" />}
       </a>
       <div className="navbar-nav align-items-center ms-auto">
         <div className="nav-item dropdown">

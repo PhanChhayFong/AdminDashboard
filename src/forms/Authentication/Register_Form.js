@@ -17,9 +17,8 @@ export const Register_Form = () => {
     password: "",
   });
   const [navigate, setNavigate] = useState(false);
-  if (navigate) {
-    return <Navigate to="/" />;
-  }
+  if (navigate) return <Navigate to="/" />;
+  
   const submit = () => {
     if (user.name != "" && user.email != "" && user.password != "") {
       if (user.password == matchPass) {

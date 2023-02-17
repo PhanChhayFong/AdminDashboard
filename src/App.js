@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 
 import { BrowserRouter as Router , Routes, Route} from "react-router-dom";
@@ -35,6 +35,10 @@ import { Edit_User_Profile } from "./forms/Configurations/User/Edit_User_Profile
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
+  useEffect(()=>{
+    if (localStorage.getItem("DarkMode") == "false")
+      document.querySelector("body").setAttribute("dark-theme", "L");
+  },[])
   return (
   <Router>
     <Routes>
