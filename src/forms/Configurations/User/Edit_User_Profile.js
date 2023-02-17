@@ -81,8 +81,7 @@ export const Edit_User_Profile = () => {
                     >
                       <label
                         onClick={handleClick}
-                        className="form-control"
-                        style={{ cursor: "pointer" }}
+                        className="form-control mouse"
                       >
                         Select Image
                       </label>
@@ -103,8 +102,7 @@ export const Edit_User_Profile = () => {
                     >
                       <a
                         onClick={() => Alart.alartChangePassword(params.id)}
-                        className="form-control"
-                        style={{ cursor: "pointer" }}
+                        className="form-control mouse"
                       >
                         Change Password
                       </a>

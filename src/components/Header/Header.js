@@ -5,10 +5,12 @@ import profile from "../../assets/img/user.jpg";
 import profile1 from "../../assets/img/testimonial-1.jpg";
 import profile2 from "../../assets/img/testimonial-2.jpg";
 import { Link, Navigate } from "react-router-dom";
-export const Header = ({ click }) => {
+export const Header = ({ click ,clickDarkmode,darkmodeStatus}) => {
   const [navigate, setNavigate] = useState(false);
+  
   const token = localStorage.getItem("token");
   const item = token ? JSON.parse(token) : "";
+
   const Logout = () => {
     if (token)
       ApiController.updateActive("users", item.user.id, { active: false });
@@ -24,8 +26,11 @@ export const Header = ({ click }) => {
           <i className="fa fa-user-edit" />
         </h2>
       </a>
-      <a herf="#" onClick={click} className="sidebar-toggler flex-shrink-0">
+      <a onClick={click} className="sidebar-toggler flex-shrink-0 mouse">
         <i className="fa fa-bars" />
+      </a>
+      <a onClick={clickDarkmode} title="Dark Mode" className="sidebar-toggler flex-shrink-0 ms-2 mouse">
+        {darkmodeStatus?<i className="fa fa-sun" />:<i className="fa fa-moon" />}
       </a>
       <div className="navbar-nav align-items-center ms-auto">
         <div className="nav-item dropdown">
@@ -148,7 +153,7 @@ export const Header = ({ click }) => {
               onClick={() => {
                 Logout();
               }}
-              className="dropdown-item m-pointer"
+              className="dropdown-item mouse"
             >
               Log Out
             </a>

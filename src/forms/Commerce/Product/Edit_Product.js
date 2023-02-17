@@ -309,8 +309,7 @@ export const Edit_Product = () => {
                         >
                           <label
                             onClick={handleImageClick}
-                            className="form-control"
-                            style={{ cursor: "pointer" }}
+                            className="form-control mouse"
                           >
                             Select Image
                           </label>
@@ -346,8 +345,7 @@ export const Edit_Product = () => {
                         >
                           <label
                             onClick={handleGalleryClicks}
-                            className="form-control"
-                            style={{ cursor: "pointer" }}
+                            className="form-control mouse"
                           >
                             Select New Gallery (1-5 Files)
                           </label>

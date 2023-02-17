@@ -169,8 +169,7 @@ export const Edit_Slideshow = () => {
                     >
                       <label
                         onClick={handleClick}
-                        className="form-control"
-                        style={{ cursor: "pointer" }}
+                        className="form-control mouse"
                       >
                         Change Image
                       </label>

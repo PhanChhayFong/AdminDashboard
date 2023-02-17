@@ -106,7 +106,7 @@ export const SideBar = (open) => {
             onClick={() => {
               Logout();
             }}
-            className="nav-item nav-link m-pointer"
+            className="nav-item nav-link mouse"
           >
             <i className="fas fa-sign-out-alt me-2" />
             Sign Out

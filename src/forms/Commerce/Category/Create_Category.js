@@ -85,8 +85,7 @@ export const Create_Category = () => {
                       >
                         <label
                           onClick={handleClick}
-                          className="form-control"
-                          style={{ cursor: "pointer" }}
+                          className="form-control mouse"
                         >
                           Select Icon
                         </label>

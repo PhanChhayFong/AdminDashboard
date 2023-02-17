@@ -174,8 +174,7 @@ export const Create_Slideshow = () => {
                         >
                           <label
                             onClick={handleClick}
-                            className="form-control"
-                            style={{ cursor: "pointer" }}
+                            className="form-control mouse"
                           >
                             Select Image
                           </label>

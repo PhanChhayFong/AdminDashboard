@@ -287,3 +287,5 @@ td{vertical-align: middle;}
     background: var(--dark);
     border-color: var(--primary);
 }
+
+.mouse{cursor: pointer}

@@ -80,7 +80,6 @@ export const Product_Index = () => {
                 <i
                   style={{
                     marginLeft: "20px",
-                    cursor: "pointer",
                     position: "relative",
                     color: "white",
                   }}
@@ -90,7 +89,7 @@ export const Product_Index = () => {
                   }}
                   className={`fas fa-sort-amount-${
                     reverse != 1 ? "up" : "down"
-                  }-alt`}
+                  }-alt mouse`}
                 ></i>
               </div>
               <div className="col-md-6 col-12 text-md-end">

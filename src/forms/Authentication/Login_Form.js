@@ -118,9 +118,8 @@ export const Login_Form = () => {
                   <i
                     className={`fa ${
                       passwordShown ? "fa-eye-slash" : "fa-eye"
-                    } floatingPassword`}
+                    } floatingPassword mouse`}
                     style={{
-                      cursor: "pointer",
                       position: "absolute",
                       top: 25,
                       right: 20,

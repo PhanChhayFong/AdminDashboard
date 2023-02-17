@@ -258,8 +258,7 @@ export const Create_Product = () => {
                         >
                           <label
                             onClick={handleClick}
-                            className="form-control"
-                            style={{ cursor: "pointer" }}
+                            className="form-control mouse"
                           >
                             Select Image
                           </label>

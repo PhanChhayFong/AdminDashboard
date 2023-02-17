@@ -12,7 +12,8 @@ export const Recent_Sale = () => {
   const currentItems = orders.slice(indexOfFirstItem, indexOfLastItem);
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   useEffect(() => {
-    ApiController.getAll(`orders/get/Success`).then((res) => setOrders(res.data));
+    const date = new Date();
+    ApiController.getAll(`orders/getSale/${date.getMonth()+1}`).then((res) => setOrders(res.data));
   }, []);
   const OrderDate = (date) => {
     const result = new Date(date);
@@ -42,7 +43,7 @@ export const Recent_Sale = () => {
                 <tr key={order.id}>
                   <td>{OrderDate(order.dateSuccess)}</td>
                   <td>{order.user ? order.user.name : ""}</td>
-                  <td>$ {order.totalPrice + order.totalPrice * 0.1}</td>
+                  <td>$ {parseFloat(order.totalPrice + order.totalPrice * 0.1).toFixed(2)}</td>
                   <td>{`${order.status=="Success"?"Paid":""}`} </td>
                   <td className="text-center">
                     <Link

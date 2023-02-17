@@ -8,6 +8,10 @@ const ProtectedRoute = ({ children }) => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const handleClick = () => setOpen(!open);
+
+  const [darkmode, setDarkmode] = useState(false);
+  const handleDarkmode = () => setDarkmode(!darkmode);
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -28,7 +32,11 @@ const ProtectedRoute = ({ children }) => {
     <>
       <SideBar open={open} />
       <div className={`content ${open ? "open" : ""}`}>
-        <Header click={() => handleClick()} />
+        <Header
+          click={() => handleClick()}
+          clickDarkmode={() => handleDarkmode()}
+          darkmodeStatus = {darkmode}
+        />
         {children}
       </div>
     </>

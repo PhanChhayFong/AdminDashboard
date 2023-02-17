@@ -120,8 +120,7 @@ export const Edit_Category = () => {
                         >
                           <label
                             onClick={handleImageClick}
-                            className="form-control"
-                            style={{ cursor: "pointer" }}
+                            className="form-control mouse"
                           >
                             Select Icon
                           </label>
