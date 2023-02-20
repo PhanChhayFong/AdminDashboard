@@ -5,7 +5,7 @@ export const Sale_Revenue = () => {
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
   const subTotalSales = orders.reduce(
-    (previous, current) => previous + new Number(current.totalPrice),
+    (previous, current) => previous + new Number(current.subTotal),
     0
   );
   useEffect(() => {

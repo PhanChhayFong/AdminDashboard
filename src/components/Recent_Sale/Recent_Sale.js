@@ -44,12 +44,7 @@ export const Recent_Sale = () => {
                 <tr key={order.id}>
                   <td>{OrderDate(order.dateSuccess)}</td>
                   <td>{order.user ? order.user.name : ""}</td>
-                  <td>
-                    ${" "}
-                    {parseFloat(
-                      order.totalPrice + order.totalPrice * 0.1
-                    ).toFixed(2)}
-                  </td>
+                  <td>$ {order.totalPrice}</td>
                   <td>{`${order.status == "Success" ? "Paid" : ""}`} </td>
                   <td className="text-center">
                     <Link
