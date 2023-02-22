@@ -16,6 +16,7 @@ export const Widgets = () => {
   return (
     <div className="container-fluid pt-4 px-4">
       <div className="row g-4">
+        {/* company */}
         <div className="col-sm-12 col-md-6 col-xl-4">
           <div className="h-100 bg-secondary rounded p-4">
             <div className="d-flex align-items-center justify-content-between mb-2">
@@ -35,6 +36,7 @@ export const Widgets = () => {
             ))}
           </div>
         </div>
+        {/* calender */}
         <div className="col-sm-12 col-md-6 col-xl-4">
           <div className="h-100 bg-secondary rounded p-4">
             <div className="d-flex align-items-center justify-content-between mb-4">
@@ -43,6 +45,7 @@ export const Widgets = () => {
             <Calendars />
           </div>
         </div>
+        {/* team */}
         <div className="col-sm-12 col-md-6 col-xl-4">
           <div className="h-100 bg-secondary rounded p-4">
             <div className="d-flex align-items-center justify-content-between mb-4">

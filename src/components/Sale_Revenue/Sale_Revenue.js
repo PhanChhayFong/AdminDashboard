@@ -20,6 +20,7 @@ export const Sale_Revenue = () => {
     //fa-chart-bar || fa-chart-line
     <div className="container-fluid pt-4 px-4">
       <div className="row g-4">
+        {/* total product */}
         <div className="col-sm-6 col-xl-3">
           <div className="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
             <i className="fa fa-box fa-3x text-primary" />
@@ -29,6 +30,7 @@ export const Sale_Revenue = () => {
             </div>
           </div>
         </div>
+        {/* sub total */}
         <div className="col-sm-6 col-xl-3">
           <div className="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
             <i className="fa fa-chart-bar fa-3x text-primary" />
@@ -38,6 +40,7 @@ export const Sale_Revenue = () => {
             </div>
           </div>
         </div>
+        {/* tax */}
         <div className="col-sm-6 col-xl-3">
           <div className="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
             <i className="fa fa-chart-pie fa-3x text-primary" />
@@ -49,6 +52,7 @@ export const Sale_Revenue = () => {
             </div>
           </div>
         </div>
+        {/* total sale */}
         <div className="col-sm-6 col-xl-3">
           <div className="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
             <i className="fa fa-chart-area fa-3x text-primary" />

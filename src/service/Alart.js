@@ -134,30 +134,45 @@ class Alart {
           if (err.response)
             return this.alartLoginError(err.response.status, err.response.data);
         });
-      // const item = {
-      //   user: res.data.user,
-      //   token: res.data.token,
-      // };
-      // localStorage.setItem("fgPass", JSON.stringify(item));
       if (res) {
-        await Swal.fire({
-          title: "Change Password",
+        const { value: formValues } = await Swal.fire({
+          title: "Sending OTP to your Email",
           html:
-            '<input type="password" id="swal-input1" class="swal2-input" placeholder="Enter New Password">' +
-            '<input type="password" id="swal-input2" class="swal2-input" placeholder="Confirm New Password">',
+            `<input id="s1" style="width:50px;" class="py-2 mx-2 text-center" maxlength="1">` +
+            `<input id="s2" style="width:50px;" class="py-2 mx-2 text-center" maxlength="1">` +
+            `<input id="s3" style="width:50px;" class="py-2 mx-2 text-center" maxlength="1">` +
+            '<input id="s4" style="width:50px;" class="py-2 mx-2 text-center" maxlength="1">',
+          focusConfirm: false,
+          preConfirm: () => {
+            return [_("s1"), _("s2"), _("s3"), _("s4")];
+          },
         });
-
-        if (
-          _("swal-input1") !== "" &&
-          _("swal-input2") !== "" &&
-          _("swal-input1") == _("swal-input2")
-        )
-          ApiController.updatePassword("users/chfgPass", res.data.user.id, "", {
-            password: `${_("swal-input1")}`,
+        const confirmOTP = formValues.join("");
+        if (res.data.OTP.toString() == confirmOTP) {
+          await Swal.fire({
+            title: "Change Password",
+            html:
+              '<input type="password" id="swal-input1" class="swal2-input" placeholder="Enter New Password">' +
+              '<input type="password" id="swal-input2" class="swal2-input" placeholder="Confirm New Password">',
           });
-        else if (_("swal-input1") !== _("swal-input2"))
-          this.alartPasswordError(true);
-        else this.alartLoginEmpty("New Password");
+
+          if (
+            _("swal-input1") !== "" &&
+            _("swal-input2") !== "" &&
+            _("swal-input1") == _("swal-input2")
+          )
+            ApiController.updatePassword(
+              "users/chfgPass",
+              res.data.user.id,
+              "",
+              {
+                password: `${_("swal-input1")}`,
+              }
+            );
+          else if (_("swal-input1") !== _("swal-input2"))
+            this.alartPasswordError(true);
+          else this.alartLoginEmpty("New Password");
+        }
       }
     }
   };

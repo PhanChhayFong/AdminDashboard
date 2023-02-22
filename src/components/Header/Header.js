@@ -21,10 +21,15 @@ export const Header = ({ click }) => {
     if (localStorage.getItem("DarkMode") == "false") setDarkmode(!darkmode);
   }, []);
   const handleDarkmode = () => {
+    //set darkmode 
     setDarkmode(!darkmode);
+
+    //change dark mode
     document
       .querySelector("body")
       .setAttribute("dark-theme", darkmode ? "D" : "L");
+      
+    //when refresh page keep the mode light or dark
     localStorage.setItem("DarkMode", darkmode);
   };
   if (navigate) return <Navigate to="/" />;
