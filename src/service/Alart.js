@@ -146,6 +146,7 @@ class Alart {
           preConfirm: () => {
             return [_("s1"), _("s2"), _("s3"), _("s4")];
           },
+          showCancelButton: true,
         });
         const confirmOTP = formValues.join("");
         if (res.data.OTP.toString() == confirmOTP) {
@@ -172,6 +173,12 @@ class Alart {
           else if (_("swal-input1") !== _("swal-input2"))
             this.alartPasswordError(true);
           else this.alartLoginEmpty("New Password");
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Wrong OTP",
+            text: `Please Enter your Email to get another OTP`,
+          });
         }
       }
     }
