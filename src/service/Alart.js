@@ -110,6 +110,13 @@ class Alart {
       this.alartPasswordError(true);
     else this.alartLoginEmpty("Password");
   };
+  alartOTP = () => {
+    Swal.fire({
+      icon: "error",
+      title: "Wrong OTP",
+      text: `Please Enter your Email to get another OTP`,
+    });
+  };
   alartForgotPassword = async () => {
     const { value: email } = await Swal.fire({
       title: "Forgot Password?...",
@@ -148,37 +155,65 @@ class Alart {
           },
           showCancelButton: true,
         });
+        if (formValues) {
+          const confirmOTP = formValues.join("");
+          if (res.data.OTP.toString() == confirmOTP) {
+            await Swal.fire({
+              title: "Change Password",
+              html:
+                '<input type="password" id="swal-input1" class="swal2-input" placeholder="Enter New Password">' +
+                '<input type="password" id="swal-input2" class="swal2-input" placeholder="Confirm New Password">',
+            });
+
+            if (
+              _("swal-input1") !== "" &&
+              _("swal-input2") !== "" &&
+              _("swal-input1") == _("swal-input2")
+            )
+              ApiController.updatePassword("users/chfgPass", res.data.user.id, {
+                password: `${_("swal-input1")}`,
+              });
+            else if (_("swal-input1") !== _("swal-input2"))
+              this.alartPasswordError(true);
+            else this.alartLoginEmpty("New Password");
+          } else this.alartOTP();
+        }
+      }
+    }
+  };
+  alartRegister = async (user) => {
+    const res = await axios.post(
+      `http://localhost:5000/api/v1/users/OTP`,
+      { email: user.email },
+      { headers: { "Content-Type": "application/json" } }
+    );
+    if (res) {
+      const { value: formValues } = await Swal.fire({
+        title: "Sending OTP to your Email",
+        html:
+          `<input id="s1" style="width:50px;" class="py-2 mx-2 text-center" maxlength="1">` +
+          `<input id="s2" style="width:50px;" class="py-2 mx-2 text-center" maxlength="1">` +
+          `<input id="s3" style="width:50px;" class="py-2 mx-2 text-center" maxlength="1">` +
+          '<input id="s4" style="width:50px;" class="py-2 mx-2 text-center" maxlength="1">',
+        focusConfirm: false,
+        preConfirm: () => {
+          return [_("s1"), _("s2"), _("s3"), _("s4")];
+        },
+        showCancelButton: true,
+      });
+      if (formValues) {
         const confirmOTP = formValues.join("");
         if (res.data.OTP.toString() == confirmOTP) {
-          await Swal.fire({
-            title: "Change Password",
-            html:
-              '<input type="password" id="swal-input1" class="swal2-input" placeholder="Enter New Password">' +
-              '<input type="password" id="swal-input2" class="swal2-input" placeholder="Confirm New Password">',
-          });
-
-          if (
-            _("swal-input1") !== "" &&
-            _("swal-input2") !== "" &&
-            _("swal-input1") == _("swal-input2")
-          )
-            ApiController.updatePassword(
-              "users/chfgPass",
-              res.data.user.id,
-              "",
-              {
-                password: `${_("swal-input1")}`,
-              }
-            );
-          else if (_("swal-input1") !== _("swal-input2"))
-            this.alartPasswordError(true);
-          else this.alartLoginEmpty("New Password");
-        } else {
           Swal.fire({
-            icon: "error",
-            title: "Wrong OTP",
-            text: `Please Enter your Email to get another OTP`,
+            icon: "success",
+            title: `Please Login your Account`,
           });
+          axios.post(`http://localhost:5000/api/v1/users/register`, user, {
+            headers: { "Content-Type": "application/json" },
+          });
+        } else {
+          this.alartOTP();
+          return false;
         }
       }
     }

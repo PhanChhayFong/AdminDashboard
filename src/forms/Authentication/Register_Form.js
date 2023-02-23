@@ -16,18 +16,13 @@ export const Register_Form = () => {
     email: "",
     password: "",
   });
-  const [navigate, setNavigate] = useState(false);
-  if (navigate) return <Navigate to="/" />;
-  
+
   const submit = () => {
-    if (user.name != "" && user.email != "" && user.password != "") {
-      if (user.password == matchPass) {
-        axios.post(`http://localhost:5000/api/v1/users/register`, user, {
-          headers: { "Content-Type": "application/json" },
-        });
-        setNavigate(true);
-      } else Alart.alartPasswordError(true);
-    } else Alart.alartPasswordError(false);
+    user.name != "" && user.email != "" && user.password != ""
+      ? user.password == matchPass
+        ? Alart.alartRegister(user)
+        : Alart.alartPasswordError(true)
+      : Alart.alartPasswordError(false);
   };
   return (
     <div className="container-fluid position-relative d-flex p-0">
@@ -50,7 +45,7 @@ export const Register_Form = () => {
               <div className="text-center">
                 <h3>Sign Up</h3>
               </div>
-              <form onSubmit={submit}>
+              <form>
                 <div className="form-floating mb-3">
                   <input
                     type="text"
