@@ -19,7 +19,7 @@ const ProtectedRoute = ({ children }) => {
       const now = new Date();
       if (now.getTime() > expItem || !item.user.isAdmin) {
         ApiController.updateActive("users", item.user.id, { active: false });
-        localStorage.clear("token");
+        localStorage.removeItem("token");
         Alart.alartLoginError("Login Expired", "Please Login Again!!!");
         navigate("/");
       }
