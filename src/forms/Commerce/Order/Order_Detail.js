@@ -69,6 +69,20 @@ export const Order_Detail = () => {
                         : DeliverDate(order.dateDelivered)}
                     </td>
                   </tr>
+                  {order.status != "Ordered" ? (
+                    <tr>
+                      {/* Delivered Date is going to appear when you click "Delivery Button" on Order Index page */}
+
+                      <th>Delivered Success</th>
+                      <td>
+                        {order.dateSuccess == null
+                          ? "Customer Not Yet Confirm"
+                          : DeliverDate(order.dateSuccess)}
+                      </td>
+                    </tr>
+                  ) : (
+                    ""
+                  )}
                 </tbody>
               </table>
             </div>
@@ -169,15 +183,15 @@ export const Order_Detail = () => {
                 <tbody>
                   <tr>
                     <th>Name</th>
-                    <td>{order.user ? order.user.name : ""}</td>
+                    <td>{order.firstname + " " + order.lastname}</td>
                   </tr>
                   <tr>
                     <th>Email</th>
-                    <td>{order.user ? order.user.email : ""}</td>
+                    <td>{order.email}</td>
                   </tr>
                   <tr>
                     <th>Phone</th>
-                    <td>{order.user ? order.user.phone : ""}</td>
+                    <td>{order.phone}</td>
                   </tr>
                   <tr>
                     <th>Shipping Address</th>
