@@ -196,6 +196,25 @@ export const Create_Product = () => {
                           Description *
                         </label>
                       </div>
+
+                      <div className="form-floating mb-3">
+                        <input
+                          type="number"
+                          className="form-control"
+                          id="rating"
+                          placeholder="rating"
+                          value={product.rating}
+                          onChange={(e) => {
+                            setProducts({
+                              ...product,
+                              rating: e.target.value,
+                            });
+                          }}
+                        />
+                        <label htmlFor="regular_price" className="form-label">
+                          Rating
+                        </label>
+                      </div>
                     </div>
                     <div className="col-md-12 py-3">
                       <div className="form-check form-switch">
