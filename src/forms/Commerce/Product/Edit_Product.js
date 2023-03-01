@@ -254,7 +254,10 @@ export const Edit_Product = () => {
                               ...product,
                               rating: e.target.value,
                             });
+                            setChanged(true);
                           }}
+                          max={5}
+                          min={0}
                         />
                         <label htmlFor="regular_price" className="form-label">
                           Rating
