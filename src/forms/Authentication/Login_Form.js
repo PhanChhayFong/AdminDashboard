@@ -16,7 +16,8 @@ export const Login_Form = () => {
     if (token) setNavigate(true);
   }, []);
   const submit = async () => {
-    if (user.email != "" && user.password != "")
+    if (user.email != "" && user.password != "") {
+      Alart.alartLoading();
       await axios
         .post(
           `http://localhost:5000/api/v1/users/login`,
@@ -61,7 +62,7 @@ export const Login_Form = () => {
               err.response.data
             );
         });
-    else
+    } else
       user.email
         ? Alart.alartLoginEmpty("Password")
         : Alart.alartLoginEmpty("Email");

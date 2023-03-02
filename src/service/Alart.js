@@ -36,7 +36,7 @@ class Alart {
   };
   alartSaveSuccess = () => {
     Swal.fire("Saved!", "", "success");
-  }
+  };
   alartSave = (changed) => {
     if (changed) {
       Swal.fire({
@@ -172,13 +172,16 @@ class Alart {
               _("swal-input1") !== "" &&
               _("swal-input2") !== "" &&
               _("swal-input1") == _("swal-input2")
-            ){
-              ApiController.updateFGPassword(`users/chfgPass`, res.data.user.id, {
-                password: `${_("swal-input1")}`,
-              });
+            ) {
+              ApiController.updateFGPassword(
+                `users/chfgPass`,
+                res.data.user.id,
+                {
+                  password: `${_("swal-input1")}`,
+                }
+              );
               this.alartSaveSuccess();
-            }
-            else if (_("swal-input1") !== _("swal-input2"))
+            } else if (_("swal-input1") !== _("swal-input2"))
               this.alartPasswordError(true);
             else this.alartLoginEmpty("New Password");
           } else this.alartOTP();
@@ -222,6 +225,13 @@ class Alart {
         }
       }
     }
+  };
+  alartLoading = () => {
+    Swal.fire({
+      title: "Login In. Please Wait!!!",
+      html: "Sending request to Login ...",
+      didOpen: () => Swal.showLoading(),
+    });
   };
 }
 export default new Alart();

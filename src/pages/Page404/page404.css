@@ -1,0 +1,40 @@
+.not-found {
+    padding-top: 50px;
+    z-index: 999;
+    background-color: #f00 !important
+}
+.bg-primary-1{
+    background-color: #f00 !important
+}
+.error-page h1 {
+    font-size: 12rem;
+}
+
+.page-body-wrapper {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 60px;
+}
+
+.page-body-wrapper.full-page-wrapper {
+    width: 100%;
+    padding-top: 0;
+}
+
+.content-wrapper {
+    background: #f5f7ff;
+    padding: 2.375rem 2.375rem;
+    width: 100%;
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+}
+.poster-404{
+    width: 400px;
+    height: 300px;
+    object-fit: contain;
+    border-radius: 30px;
+}

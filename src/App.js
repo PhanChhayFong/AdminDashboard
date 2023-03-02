@@ -33,6 +33,7 @@ import { Profile } from "./pages/Configuration_Page/User/Profile";
 import { Edit_User_Profile } from "./forms/Configurations/User/Edit_User_Profile";
 
 import ProtectedRoute from "./components/ProtectedRoute";
+import Page404 from "./pages/Page404/page404";
 
 function App() {
   useEffect(()=>{
@@ -82,6 +83,9 @@ function App() {
       {/* Link for Login Form */}
       <Route path="/" element={<Login/>}/>
       <Route path="/register" element={<Register/>}/>
+
+      {/* If the other path not found will go to Page404 */}
+      <Route path="*" element={<Page404 />} />
     </Routes>
   </Router>
   );

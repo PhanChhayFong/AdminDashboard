@@ -66,16 +66,23 @@ class ApiController {
   findByTitle(tb, title) {
     return config(true).get(`/${tb}?title=${title}`);
   }
-  // forgotPass(tb, data) {
-  //   // console.log(data)
-
-  //   return (config(true)
-  //   .post(`${tb}`, data)
-  //   .catch((err) => {
-  //     if (err.response)
-  //       return Alart.alartLoginError(err.response.status, err.response.data);
-  //   }));
-  // }
+  ProtectedRoute(){
+    const token = localStorage.getItem("token");
+    if (!token) return false;
+    else {
+      const item = JSON.parse(token);
+      this.updateActive("users", item.user.id, { active: true });
+      const expItem = new Date(item.expDate);
+      const now = new Date();
+      if (now.getTime() > expItem || !item.user.isAdmin) {
+        this.updateActive("users", item.user.id, { active: false });
+        localStorage.removeItem("token");
+        Alart.alartLoginError("Login Expired", "Please Login Again!!!");
+        return false;
+      }
+      return true;
+    }
+  }
 }
 
 export default new ApiController();

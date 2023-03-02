@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 import ApiController from "../../../service/Controller";
 import Pagination from "../../../components/Pagination";
 import Alart from "../../../service/Alart";
 
 export const User_Index = () => {
+  const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [reRender, setReRender] = useState(false);
   //about pagination
@@ -18,13 +19,8 @@ export const User_Index = () => {
   const tb = "users";
 
   useEffect(() => {
-    ApiController.getAll(tb)
-      .then((res) => {
-        setUsers(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (!ApiController.ProtectedRoute()) navigate("/");
+    ApiController.getAll(tb).then((res) => setUsers(res.data));
     setReRender(false);
   }, [reRender]);
 

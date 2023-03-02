@@ -4,27 +4,13 @@ import { Header } from "./Header/Header";
 import { useNavigate } from "react-router-dom";
 import { Footer } from "./Footer/Footer";
 import ApiController from "../service/Controller";
-import Alart from "../service/Alart";
 const ProtectedRoute = ({ children }) => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const handleClick = () => setOpen(!open);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) navigate("/");
-    else {
-      const item = JSON.parse(token);
-      ApiController.updateActive("users", item.user.id, { active: true });
-      const expItem = new Date(item.expDate);
-      const now = new Date();
-      if (now.getTime() > expItem || !item.user.isAdmin) {
-        ApiController.updateActive("users", item.user.id, { active: false });
-        localStorage.removeItem("token");
-        Alart.alartLoginError("Login Expired", "Please Login Again!!!");
-        navigate("/");
-      }
-    }
+    if (!ApiController.ProtectedRoute()) navigate("/");
   }, []);
   return (
     <>

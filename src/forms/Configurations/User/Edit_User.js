@@ -13,13 +13,7 @@ export const Edit_User = () => {
   const [changed, setChanged] = useState(false);
   //getting all data from tbProduct and tbCategory
   useEffect(() => {
-    ApiController.get(tb, params.id)
-      .then((res) => {
-        setUser(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    ApiController.get(tb, params.id).then((res) => setUser(res.data));
   }, []);
   //alart popup box when go back to list without save
   const alart = () => {
