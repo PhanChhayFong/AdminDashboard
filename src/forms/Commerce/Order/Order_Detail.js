@@ -126,9 +126,17 @@ export const Order_Detail = () => {
                       </td>
                       <td>{orderItem.product.name}</td>
                       <td>{orderItem.quantity}</td>
-                      <td>$ {orderItem.product.salePrice}</td>
                       <td>
-                        $ {orderItem.quantity * orderItem.product.salePrice}
+                        ${" "}
+                        {orderItem.product.salePrice
+                          ? orderItem.product.salePrice
+                          : orderItem.product.regularPrice}
+                      </td>
+                      <td>
+                        ${" "}
+                        {orderItem.quantity * orderItem.product.salePrice
+                          ? orderItem.product.salePrice
+                          : orderItem.product.regularPrice}
                       </td>
                     </tr>
                   ))}
@@ -144,12 +152,12 @@ export const Order_Detail = () => {
                 <tbody>
                   <tr>
                     <td>SubTotal</td>
-                    <th className="text-end">$ {order.totalPrice}</th>
+                    <th className="text-end">$ {order.subTotal}</th>
                   </tr>
                   <tr>
                     <td>Tax</td>
                     <th className="text-end">
-                      $ {parseFloat(order.totalPrice * 0.1).toFixed(2)}
+                      $ {parseFloat(order.subTotal * 0.1).toFixed(2)}
                     </th>
                   </tr>
                   <tr>
@@ -159,7 +167,7 @@ export const Order_Detail = () => {
                   <tr>
                     <td>Total</td>
                     <th className="text-end">
-                      $ {order.totalPrice + order.totalPrice * 0.1}
+                      $ {order.totalPrice}
                     </th>
                   </tr>
                 </tbody>

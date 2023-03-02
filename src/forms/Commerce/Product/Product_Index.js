@@ -149,7 +149,7 @@ export const Product_Index = () => {
                     <td className="d-none d-md-table-cell">
                       $ {product.regularPrice}
                     </td>
-                    <td>$ {product.salePrice}</td>
+                    {product.salePrice?<td> $ {product.salePrice}</td>:<td>None</td>}
                     <td>
                       <div className="d-flex">
                         <Link
