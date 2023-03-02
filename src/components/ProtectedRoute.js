@@ -15,6 +15,7 @@ const ProtectedRoute = ({ children }) => {
     if (!token) navigate("/");
     else {
       const item = JSON.parse(token);
+      ApiController.updateActive("users", item.user.id, { active: true });
       const expItem = new Date(item.expDate);
       const now = new Date();
       if (now.getTime() > expItem || !item.user.isAdmin) {
