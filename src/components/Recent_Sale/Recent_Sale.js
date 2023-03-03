@@ -23,55 +23,61 @@ export const Recent_Sale = () => {
     )}-${result.getFullYear()}`;
   };
   return (
-    <div className="container-fluid pt-4 px-4">
-      <div className="bg-secondary text-center rounded p-4">
-        <div className="d-flex align-items-center justify-content-between mb-4">
-          <h6 className="mb-0">Recent Sales</h6>
-        </div>
-        <div className="table-responsive">
-          <table className="table text-start align-middle table-bordered table-hover mb-3">
-            <thead>
-              <tr className="text-white">
-                <th>Date</th>
-                <th>Customer</th>
-                <th>Total Price</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {currentItems.map((order) => (
-                <tr key={order.id}>
-                  <td>{OrderDate(order.dateSuccess)}</td>
-                  <td>{order.user ? order.user.name : ""}</td>
-                  <td>$ {order.totalPrice}</td>
-                  <td>{`${order.status == "Success" ? "Paid" : ""}`} </td>
-                  <td className="text-center">
-                    <Link
-                      to={`/order/order_detail/${order.id}/admin`}
-                      className="btn btn-sm btn-primary"
-                    >
-                      Detail
-                    </Link>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          {orders.length > itemsPerPage ? (
-            <div>
-              <Pagination
-                currentPage={currentPage}
-                itemsPerPage={itemsPerPage}
-                totalItems={orders.length}
-                paginate={paginate}
-              />
+    <>
+      {orders.length != 0 ? (
+        <div className="container-fluid pt-4 px-4">
+          <div className="bg-secondary text-center rounded p-4">
+            <div className="d-flex align-items-center justify-content-between mb-4">
+              <h6 className="mb-0">Recent Sales</h6>
             </div>
-          ) : (
-            ""
-          )}
+            <div className="table-responsive">
+              <table className="table text-start align-middle table-bordered table-hover mb-3">
+                <thead>
+                  <tr className="text-white">
+                    <th>Date</th>
+                    <th>Customer</th>
+                    <th>Total Price</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {currentItems.map((order) => (
+                    <tr key={order.id}>
+                      <td>{OrderDate(order.dateSuccess)}</td>
+                      <td>{order.user ? order.user.name : ""}</td>
+                      <td>$ {order.totalPrice}</td>
+                      <td>{`${order.status == "Success" ? "Paid" : ""}`} </td>
+                      <td className="text-center">
+                        <Link
+                          to={`/order/order_detail/${order.id}/admin`}
+                          className="btn btn-sm btn-primary"
+                        >
+                          Detail
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              {orders.length > itemsPerPage ? (
+                <div>
+                  <Pagination
+                    currentPage={currentPage}
+                    itemsPerPage={itemsPerPage}
+                    totalItems={orders.length}
+                    paginate={paginate}
+                  />
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      ) : (
+        ""
+      )}
+    </>
   );
 };
