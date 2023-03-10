@@ -256,18 +256,22 @@ export const Edit_User = () => {
                         />
                       </div>
                       <div style={{ textAlign: "center" }}>
-                        <img
-                          src={
-                            img
-                              ? URL.createObjectURL(user.image)
-                              : `${user.image}`
-                          }
-                          height="200px"
-                          style={{
-                            border: "1px solid white",
-                            padding: "20px",
-                          }}
-                        />
+                        {user.image != "" ? (
+                          <img
+                            src={
+                              img
+                                ? URL.createObjectURL(user.image)
+                                : `${user.image}`
+                            }
+                            height="200px"
+                            style={{
+                              border: "1px solid white",
+                              padding: "20px",
+                            }}
+                          />
+                        ) : (
+                          <p>Please Insert your Profile!!!</p>
+                        )}
                       </div>
                     </div>
                   </div>
