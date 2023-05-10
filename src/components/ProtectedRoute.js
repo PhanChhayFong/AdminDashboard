@@ -10,6 +10,14 @@ const ProtectedRoute = ({ children }) => {
   const handleClick = () => setOpen(!open);
 
   useEffect(() => {
+    window.addEventListener("keypress", (e) => {
+      if (e.key == "`") {
+        handleClick();
+      }
+    });
+  }, [open]);
+  
+  useEffect(() => {
     if (!ApiController.ProtectedRoute()) navigate("/");
   }, []);
   return (

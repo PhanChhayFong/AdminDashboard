@@ -18,17 +18,24 @@ export const Header = ({ click }) => {
     setNavigate(true);
   };
   useEffect(() => {
+    window.addEventListener("keypress", (e) => {
+      if (e.key == "~") {
+        handleDarkmode();
+      }
+    });
+  }, [darkmode]);
+  useEffect(() => {
     if (localStorage.getItem("DarkMode") == "false") setDarkmode(!darkmode);
   }, []);
   const handleDarkmode = () => {
-    //set darkmode 
+    //set darkmode
     setDarkmode(!darkmode);
 
     //change dark mode
     document
       .querySelector("body")
       .setAttribute("dark-theme", darkmode ? "D" : "L");
-      
+
     //when refresh page keep the mode light or dark
     localStorage.setItem("DarkMode", darkmode);
   };
@@ -42,12 +49,16 @@ export const Header = ({ click }) => {
           <i className="fa fa-user-edit" />
         </h2>
       </a>
-      <a onClick={click} className="sidebar-toggler flex-shrink-0 mouse">
+      <a
+        onClick={click}
+        title="Toggle Sidebar ( ` )"
+        className="sidebar-toggler flex-shrink-0 mouse"
+      >
         <i className="fa fa-bars" />
       </a>
       <a
         onClick={handleDarkmode}
-        title="Dark Mode"
+        title="Dark Mode (Shift + ` )"
         className="sidebar-toggler flex-shrink-0 ms-2 mouse"
       >
         {darkmode ? <i className="fa fa-sun" /> : <i className="fa fa-moon" />}
