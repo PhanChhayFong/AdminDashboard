@@ -3,10 +3,8 @@ import { Company_Index } from "../../../forms/Configurations/Company/Company_Ind
 
 export const Company = () => {
   return (
-    <>
-      <div className="content open">
-        <Company_Index />
-      </div>
-    </>
+    <div className="content open">
+      <Company_Index />
+    </div>
   );
 };
