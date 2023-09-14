@@ -73,9 +73,7 @@ export const Login_Form = () => {
   if (navigate) return <Navigate to="/admin" />;
 
   const handleKeyPress = (event) => {
-    if (event.key == "Enter") {
-      submit();
-    }
+    if (event.key == "Enter") submit();
   };
 
   return (
