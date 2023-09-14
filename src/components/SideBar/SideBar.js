@@ -13,14 +13,30 @@ export const SideBar = (open) => {
   };
   if (navigate) return <Navigate to="/" />;
   return (
-    <div className={`sidebar ${open.open ? "open" : ""} pe-4 pb-3 d-scroll-y bg-secondary`}>
+    <div
+      className={`sidebar ${
+        open.open ? "open" : ""
+      } pe-4 pb-3 d-scroll-y bg-secondary`}
+    >
       <nav className="navbar navbar-dark">
-        <Link to="/admin" className="navbar-brand mx-2 mb-3">
+        {/* <Link to="/admin" className="navbar-brand mx-2 mb-3">
           <h3 className="text-primary">
             <i className="fa fa-user-edit me-2" />
             Furniture Shop
           </h3>
-        </Link>
+        </Link> */}
+        <a
+          className="navbar-brand mx-2 mb-3"
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            window.location.href = "http://localhost:8000/";
+          }}
+        >
+          <h3 className="text-primary">
+            <i className="fa fa-user-edit me-2" />
+            Furniture Shop
+          </h3>
+        </a>
         <div className="d-flex align-items-center ms-4 mb-4">
           <div className="position-relative">
             {/* <img
@@ -66,7 +82,7 @@ export const SideBar = (open) => {
               Commerce
             </a>
             <div className="nav-item dropdown-menu bg-transparent border-0">
-              <NavLink to="/product" className="nav-link dropdown-item bor-b ">
+              <NavLink to="/product" className="nav-link dropdown-item bor-b">
                 <i className="fas fa-archive me-2" />
                 Product
               </NavLink>

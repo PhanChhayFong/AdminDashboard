@@ -76,7 +76,7 @@
     top: 0;
     left: 0;
     bottom: 0;
-    width: 250px;
+    width: 270px;
     height: 100vh;
     overflow-y: auto;
     /* background: var(--secondary); */
@@ -85,7 +85,7 @@
 }
 
 .content {
-    margin-left: 250px;
+    margin-left: 270px;
     min-height: 100vh;
     background: var(--dark);
     transition: 0.5s;
@@ -97,11 +97,11 @@
     }
 
     .sidebar.open {
-        margin-left: -250px;
+        margin-left: -270px;
     }
 
     .content {
-        width: calc(100% - 250px);
+        width: calc(100% - 270px);
     }
 
     .content.open {
@@ -112,7 +112,7 @@
 
 @media (max-width: 991.98px) {
     .sidebar {
-        margin-left: -250px;
+        margin-left: -270px;
     }
 
     .sidebar.open {
@@ -134,6 +134,7 @@
     border-left: 3px solid var(--secondary);
     border-radius: 0 30px 30px 0;
     outline: none;
+    transition: 300ms;
 }
 
 .sidebar .navbar .navbar-nav .nav-link:hover,
@@ -141,6 +142,7 @@
     color: var(--primary);
     background: var(--dark);
     border-color: var(--primary);
+    padding-left: 30px;
 }
 
 .sidebar .navbar .navbar-nav .nav-link i {
@@ -177,11 +179,13 @@
     padding-left: 25px;
     border-radius: 0 30px 30px 0;
     color: var(--light);
+    transition: 300ms;
 }
 
 .sidebar .navbar .dropdown-item:hover,
 .sidebar .navbar .dropdown-item.active {
     background: var(--dark);
+    margin-left: 60px;
 }
 
 .content .navbar .navbar-nav .nav-link {
@@ -304,8 +308,15 @@ span.carousel-control-next-icon {
     background-size: 80% !important;
     background-position: center;
 }
+.bor-bt{
+    border-bottom: 5px solid var(--white);
+    border-top: 0.1px solid var(--white);
+}
 .bor-b{
     border-bottom: 2px solid var(--white);
+}
+.bor-t{
+    border-top: 2px solid var(--white);
 }
 .bor-1{
     border: 1px solid var(--white);
@@ -320,4 +331,8 @@ span.carousel-control-next-icon {
     background-size: 100%;
     background-position: center center;
     background-color: #ff0000;
+}
+.dropdown-menu .dropdown-item{
+    width: 80%;
+    margin-left: 50px;
 }
