@@ -7,14 +7,17 @@ import axios from "axios";
 export const Login_Form = () => {
   const [navigate, setNavigate] = useState(false);
   const [passwordShown, setPasswordShown] = useState(false);
+
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) setNavigate(true);
   }, []);
+
   const submit = async () => {
     if (user.email != "" && user.password != "") {
       Alart.alartLoading();
@@ -69,6 +72,12 @@ export const Login_Form = () => {
   };
   if (navigate) return <Navigate to="/admin" />;
 
+  const handleKeyPress = (event) => {
+    if (event.key == "Enter") {
+      submit();
+    }
+  };
+
   return (
     <div className="container-fluid position-relative d-flex p-0">
       {/* Sign In Start */}
@@ -103,6 +112,7 @@ export const Login_Form = () => {
                         email: e.target.value,
                       });
                     }}
+                    onKeyPress={handleKeyPress}
                   />
                   <label htmlFor="floatingInput">Email address</label>
                 </div>
@@ -121,6 +131,7 @@ export const Login_Form = () => {
                         password: e.target.value,
                       });
                     }}
+                    onKeyPress={handleKeyPress}
                   />
                   <i
                     className={`fa ${

@@ -188,6 +188,11 @@
     margin-left: 60px;
 }
 
+.sidebar .dropdown-menu .nav-link{
+    width: 80%;
+    margin-left: 50px;
+}
+
 .content .navbar .navbar-nav .nav-link {
     margin-left: 25px;
     padding: 12px 0;
@@ -331,8 +336,4 @@ span.carousel-control-next-icon {
     background-size: 100%;
     background-position: center center;
     background-color: #ff0000;
-}
-.dropdown-menu .dropdown-item{
-    width: 80%;
-    margin-left: 50px;
 }
