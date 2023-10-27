@@ -1,12 +1,11 @@
 // import http from "../api/http-common";
 import axios from "axios";
 import Alart from "./Alart";
-const basePath = `http://localhost:5000/api/v1/`;
 const token = localStorage.getItem("token");
 const item = token ? JSON.parse(token) : "";
 const config = (e) =>
   axios.create({
-    baseURL: basePath,
+    baseURL: `http://localhost:5000/api/v1/`,
     headers: {
       "Content-type": e ? "application/json" : "multipart/form-data",
       Authorization: "Bearer " + item.token,
