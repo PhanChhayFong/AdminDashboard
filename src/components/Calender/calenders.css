@@ -18,7 +18,7 @@ span.rbc-toolbar-label {
 .rbc-date-cell.rbc-now.rbc-current button,.rbc-header.rbc-today button {
     background: green;
     color: #fff;
-    border-color: #fff;
+    border-color: #000;
 }
 .rbc-time-gutter.rbc-time-column {
     display: flex;
@@ -29,4 +29,20 @@ span.rbc-toolbar-label {
 }
 .rbc-toolbar {
     margin: 10px;
+}
+.rbc-month-view button{
+    border-radius: 50%;
+    background-color: wheat;
+    height: 30px;
+    width: 30px;
+    padding: 0px;
+}
+span.rbc-btn-group button {
+    border-radius: 50px;
+    margin: 0px 2px;
+}
+.rbc-row.rbc-month-header span {
+    border: 1px solid black;
+    padding: 0px 5px;
+    border-radius: 10px 5px;
 }
