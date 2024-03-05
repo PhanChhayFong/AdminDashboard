@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link , useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ApiController from "../../../service/Controller";
 import Pagination from "../../../components/Pagination";
 import Alart from "../../../service/Alart";
@@ -51,7 +51,7 @@ export const User_Index = () => {
                   <th>Name</th>
                   <th className="d-none d-md-table-cell">Email</th>
                   <th>Phone</th>
-                  <th className="d-none d-md-table-cell">Type</th>
+                  <th className="d-none d-md-table-cell">Role</th>
                   <th>Actions</th>
                 </tr>
               </thead>

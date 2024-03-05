@@ -74,13 +74,14 @@ class Alart {
   alartLoginSuccess = () => {
     Swal.fire({
       icon: "success",
-      title: `Welcome Admin`,
+      title: `Welcome To Dashboard`,
     });
   };
   alartLoginError = (status, error) => {
     Swal.fire({
       icon: "error",
-      title: `Error ${status} !!!`,
+      // title: `Error ${status} !!!`,
+      title: `Wrong Password!!!`,
       text: `${error}`,
     });
   };
