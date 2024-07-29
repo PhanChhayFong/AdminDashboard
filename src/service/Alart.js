@@ -134,7 +134,7 @@ class Alart {
     if (email) {
       const res = await axios
         .post(
-          `http://localhost:5000/api/v1/users/fgPassword`,
+          `http://localhost:4000/api/v1/users/fgPassword`,
           {
             email: email,
           },
@@ -192,7 +192,7 @@ class Alart {
   };
   alartRegister = async (user) => {
     const res = await axios.post(
-      `http://localhost:5000/api/v1/users/OTP`,
+      `http://localhost:4000/api/v1/users/OTP`,
       { email: user.email },
       { headers: { "Content-Type": "application/json" } }
     );
@@ -217,7 +217,7 @@ class Alart {
             icon: "success",
             title: `Please Login your Account`,
           });
-          axios.post(`http://localhost:5000/api/v1/users/register`, user, {
+          axios.post(`http://localhost:4000/api/v1/users/register`, user, {
             headers: { "Content-Type": "application/json" },
           });
         } else {

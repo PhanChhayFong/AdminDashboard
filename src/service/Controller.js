@@ -5,7 +5,7 @@ const token = localStorage.getItem("token");
 const item = token ? JSON.parse(token) : "";
 const config = (e) =>
   axios.create({
-    baseURL: `http://localhost:5000/api/v1/`,
+    baseURL: `http://localhost:4000/api/v1/`,
     headers: {
       "Content-type": e ? "application/json" : "multipart/form-data",
       Authorization: "Bearer " + item.token,
